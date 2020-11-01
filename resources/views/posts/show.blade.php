@@ -70,7 +70,10 @@
                     <p class="card-text">　　{{ $comment->comment }}</p>
                 </div>
             </div>
-            <i class="fas fa-reply"></i><i class="far fa-heart"></i>
+            <a href="{{ route('replies.create',['comment_id' => $comment->id]) }}">
+                <i class="fas fa-reply"></i>
+            </a>
+            <i class="far fa-heart"></i>
             <hr>
         @endforeach
         <a href="{{ route('comments.create', ['post_id' => $post->id]) }}" class="btn btn-primary">コメントする <i class="fas fa-comments"></i></a>

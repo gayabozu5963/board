@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Post;
 use App\User;
 use App\Tag;
+use App\Comment;
 
 class PostController extends Controller
 {
@@ -196,6 +197,17 @@ class PostController extends Controller
             'posts' => $posts,
             'search_result' => $search_result,
             'search_query'  => $request->search
+        ]);
+    }
+
+    public function rep()
+    {
+        $comments = Comment::with(['user', 'replies', 'replies.user'])
+            ->where('comments.post_id', $post_id)
+            ->get();
+
+        return view('replies.create', [
+            'comments' => $comments,
         ]);
     }
 }

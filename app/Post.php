@@ -28,8 +28,7 @@ class Post extends Model
         return $this->hasMany(\App\Comment::class,'post_id', 'id');
       }
 
-    public function tags()
-    {
+    public function tags(){
         return $this->belongsToMany('App\Tag')->withTimestamps();
     }
 }

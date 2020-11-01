@@ -33,3 +33,8 @@ Route::post('/user/userEdit', 'UserController@userUpdate')->name('user.userUpdat
 
 Route::resource('/comments', 'CommentController', )->middleware('auth');
 
+Route::resource('/replies', 'ReplieController')->middleware('auth');
+
+// Route::resource('/posts/{id}', 'PostController@rep')->name('posts.rep');
+
+
