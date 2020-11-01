@@ -45,7 +45,24 @@
             <div class="card">
                 <div class="card-body">
                 <p class="card-text">
-                        コメント投稿者 : 
+                    @if(!empty($comment->user->pro_image))
+                        <img src="{{ asset('storage/pro_image/'.$comment->user->pro_image) }}" class="pro_image" 
+                            style= "width: 25px;
+                            height: 25px;
+                            background: #eee;
+                            border-radius: 50%;
+                            box-shadow: 0 2px 3px 1px rgb(0, 0, 0);
+                            object-fit: cover;
+                            ">
+                    @else
+                        <img src="{{ asset('storage/noimage/noimage.png') }}" class="noimage" 
+                            style= "width: 25px;
+                            height: 25px;
+                            background: #eee;
+                            border-radius: 50%;
+                            ">
+                    @endif
+                    
                         <a href="{{ route('users.show', $comment->user->id) }}">
                             {{ $comment->user->name }}
                         </a>
@@ -53,6 +70,7 @@
                     <p class="card-text">　　{{ $comment->comment }}</p>
                 </div>
             </div>
+            <i class="fas fa-reply"></i><i class="far fa-heart"></i>
             <hr>
         @endforeach
         <a href="{{ route('comments.create', ['post_id' => $post->id]) }}" class="btn btn-primary">コメントする <i class="fas fa-comments"></i></a>

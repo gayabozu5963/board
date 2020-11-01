@@ -124,6 +124,9 @@
             </h5>
             <!-- 詳細 -->
             <a href="{{ route('posts.show' ,$post->id)}}" class="btn btn-primary">スレッド詳細</a>
+            <h5 class="card-title"style= "text-align: right;">
+            <i class="far fa-star"></i>
+            </h5>
             <hr>
         </div>
     </div>
