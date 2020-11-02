@@ -1,6 +1,8 @@
 @extends('layouts.app')
 @section('content')
-<div class="panel-heading">{{ $post->title }}</div>
+<div class="panel-heading"style = "
+                        font-size: 20px;
+                        font-weight: 600;">Title：{{ $post->title }}</div>
 <div class="panel-body">
     @if (session('status'))
         <div class="alert alert-success">
@@ -66,11 +68,24 @@
                         <a href="{{ route('users.show', $comment->user->id) }}">
                             {{ $comment->user->name }}
                         </a>
+                        投稿日時：{{$comment->created_at}}
                     </p>
                     <p class="card-text">　　{{ $comment->comment }}</p>
+ {{--         @if(!empty($comment->replies))
+                        @foreach($comment->replies as $replie)
+                        <p class="card-text">{{ $replie }}</p>
+                        @endforeach
+                    @else
+                    @endif --}}
+
+                    @foreach($comment->replies as $replie)
+                    <p class="card-text">{{ $replie->replie  }}</p>
+                    @endforeach
+
                 </div>
             </div>
             <a href="{{ route('replies.create',['comment_id' => $comment->id]) }}">
+
                 <i class="fas fa-reply"></i>
             </a>
             <i class="far fa-heart"></i>

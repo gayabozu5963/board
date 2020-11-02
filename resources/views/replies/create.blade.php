@@ -24,16 +24,18 @@
                 </ul>
             </div>
         @endif
-        <form action="{{ route('comments.store')}}" method="POST">
+        <form action="{{ route('replies.store')}}" method="POST">
         {{ csrf_field() }}
-
                 <div class="form-group">
-
-                  <textarea class="form-control" rows="5" id="comment" name="comment">@ {{$comment->user->name}}さん---</textarea>
+                  <textarea class="form-control" rows="5" id="replie" name="replie">@ {{$comment->user->name}}さん>>></textarea>
                 </div>
 
                 <input type="hidden" name="user_id" value="{{ Auth::id() }}">
                 <input type="hidden" name="comment_id" value="{{ $comment_id }}">
+                <input type="hidden" name="post_id" value="{{ $post_id }}">
+
+
+
 
             <button type="submit" class="btn btn-primary"><i class="fas fa-reply"></i>Reply</button>
         </form>

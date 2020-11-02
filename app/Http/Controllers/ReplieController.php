@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ReplieRequest;
 use App\Comment;
 use App\Replie;
 use App\User;
@@ -24,7 +25,7 @@ class ReplieController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Comment $comment,Request $request)
+    public function create(Request $request)
     {
         $q = \Request::query();
 
@@ -34,11 +35,16 @@ class ReplieController extends Controller
         ->where('comments.id', $comment_id)
         ->get();
 
-
+        // commentテーブルからリクエストで取得したcomment_idを元にpost_idを取得するSQL
+        // sqlでかくと→select post_id from comments where id = $comment_id
+        $post_id = \App\Comment::select('post_id')
+        ->where('id', $comment_id)
+        ->get();
 
         return view('replies.create', [
             'comment_id' => $q['comment_id'],
             'comments' => $comments,
+            'post_id' => $post_id,
         ]);
     }
 
@@ -48,9 +54,17 @@ class ReplieController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ReplieRequest $request)
     {
-        //
+        $replie = new Replie;
+        $input = $request->only($replie->getFillable());
+        $replie = $replie->create($input);
+
+        $post_id = $request->get('post_id');
+
+        $num = preg_replace('/[^0-9]/', '', $post_id);
+        
+        return redirect('/posts/'.$num);
     }
 
     /**
