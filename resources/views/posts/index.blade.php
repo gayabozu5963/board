@@ -39,8 +39,8 @@
     @foreach($posts as $post)
     <div class="card">
         <div class="card-body">
-                <!--user image -->
-                @if(!empty($post->user->pro_image))
+            <!--user image -->
+            @if(!empty($post->user->pro_image))
                 <div style = "display: flex;">
                     <img src="{{ asset('storage/pro_image/'.$post->user->pro_image) }}" class="pro_image" 
                         style= "width: 50px;
@@ -50,7 +50,6 @@
                         box-shadow: 0 2px 3px 1px rgb(0, 0, 0);
                         object-fit: cover;
                         ">
-                
                 
                     <div style = "flex-direction: column; padding-left: 10px;">
                         <!-- user name -->

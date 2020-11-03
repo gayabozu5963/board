@@ -35,8 +35,6 @@ class ReplieController extends Controller
         ->where('comments.id', $comment_id)
         ->get();
 
-        // commentテーブルからリクエストで取得したcomment_idを元にpost_idを取得するSQL
-        // sqlでかくと→select post_id from comments where id = $comment_id
         $post_id = \App\Comment::select('post_id')
         ->where('id', $comment_id)
         ->get();
