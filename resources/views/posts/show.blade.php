@@ -62,9 +62,6 @@
             </div>
             @endif
             
-            <p class="card-text">
-            Comment ：{{$post->content}}</p>
-            
             @if (!empty($post->image))
             <img src="{{ asset('storage/image/'.$post->image) }}"　style= "width: 250px;
                 height: 250px;
@@ -77,6 +74,10 @@
                 > 
             @else
             @endif
+            <p class="card-text" style = "
+                        font-size: 20px;
+                        font-weight: 600;">
+            {{$post->content}}</p>
             <hr>
         </div>
     </div>
@@ -118,8 +119,16 @@
             </div>
             <div style="padding-left: 30px;">
             <a href="{{ route('replies.create',['comment_id' => $comment->id]) }}">
-                <i class="fas fa-reply"></i>
+            <i class="fas fa-reply"></i>
             </a>
+                <?php $i=0; ?>
+                @foreach($comment->replies as $replie)
+                <?php $i++; ?>
+                @endforeach
+                @if($i == 0)
+                @else
+                {{$i}}
+                @endif
             <i class="far fa-heart"></i>
             </div>
             
@@ -150,11 +159,14 @@
                             <a href="{{ route('users.show', $replie->user->id) }}">
                                 {{ $replie->user->name }}
                             </a>
-                            返信日時：{{$replie->created_at}}
                             <div style="padding-left: 30px;">
-                            <p class="card-text">{{ $replie->replie  }}</p>
+                            <p class="card-text">{{ $replie->replie }}</p>
                             </div>
+                            <p style="padding-left: 30px; font-size: 12px; ">
+                            返信日時：{{$replie->created_at}}
+                            </p>
                         </div>
+
                             <hr>
                         @endforeach
                     @else

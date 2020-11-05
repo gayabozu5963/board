@@ -12,7 +12,6 @@ class Replie extends Model
         'replie','user_id','comment_id'
     ];
 
-
     // リプライは一人の投稿者に従属
     public function user(){
         return $this->belongsTo('App\User');
