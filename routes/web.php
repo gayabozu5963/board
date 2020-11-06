@@ -21,6 +21,8 @@ Route::get('/', 'PostController@index')->name('posts.index');
 
 Route::get('/posts/search', 'PostController@search')->name('posts.search');
 
+Route::get('/posts/show_pic/{image}', 'PostController@show_pic')->name('posts.show_pic');
+
 Route::resource('/posts', 'PostController', ['except' => ['index']]);
 
 Route::resource('/users', 'UserController');

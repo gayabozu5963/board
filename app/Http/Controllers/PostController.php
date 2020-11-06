@@ -210,4 +210,12 @@ class PostController extends Controller
             'comments' => $comments,
         ]);
     }
+
+    public function show_pic(Request $request)
+    {
+        $pict = $request->image;
+        return view('posts.show_pict', [
+            'pict' => $pict,
+        ]);
+    }
 }

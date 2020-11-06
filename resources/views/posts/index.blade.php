@@ -100,12 +100,14 @@
 
             <!-- image -->
             @if (!empty($post->image))
+            <a href="{{ route('posts.show_pic', $post->image) }}">
             <img src="{{ asset('storage/image/'.$post->image) }}"　style= "width: 250px;
                 height: 250px;
                 object-fit: contain;
                 margin-right: 3%;
                 border-radius: 35px;"
                 >
+            </a>
             @else
             @endif
             
