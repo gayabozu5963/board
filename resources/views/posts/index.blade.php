@@ -91,12 +91,12 @@
             @endif
             
             <!-- カテゴリー -->
-            <p>
+            <!-- {{-- <p>
             Category ： 
                 <a href="{{ route('posts.index', ['category_id' => $post->category_id]) }}">
                     {{ $post->category->category_name }}
                 </a>
-            </p>
+            </p> --}}-->
 
             <!-- image -->
             @if (!empty($post->image))
@@ -132,10 +132,11 @@
         </div>
     </div>
     @endforeach
-    @if(isset($category_id))
-    {{ $posts->appends(['category_id' => $category_id])->links() }}
+         <!-- {{-- @if(isset($category_id))
+              {{ $posts->appends(['category_id' => $category_id])->links() }} 
+              @elseif(isset($tag_name)) --}}  -->
 
-    @elseif(isset($tag_name))
+    @if(isset($tag_name))
     {{ $posts->appends(['tag_name' => $tag_name])->links() }}
 
     @elseif(isset($search_query))

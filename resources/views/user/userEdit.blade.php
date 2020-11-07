@@ -5,31 +5,7 @@
     @if (session('success'))
     <div class="alert alert-success">{{ session('success') }}</div>
     @endif
-
- 
-
-
-
-
-
-
-   
-
-
-
-
-
-
-
-
-        <div class="buttonSet">
- 
-        </div>
-    </form>
 </div>
-
-
-
 
 <div class="panel-heading" style="text-align:center;">{{ $authUser->name }}さんのプロフィール
     </div>

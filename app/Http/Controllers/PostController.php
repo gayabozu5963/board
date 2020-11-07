@@ -21,28 +21,45 @@ class PostController extends Controller
     {
         $q = \Request::query();
 
-        if(isset($q['category_id'])){
-            $posts = Post::latest()->where('category_id', $q['category_id'])->paginate(5);
-            $posts->load('category', 'user', 'tags');
+        // if(isset($q['category_id'])){
+        //     $posts = Post::latest()->where('category_id', $q['category_id'])->paginate(5);
+        //     $posts->load('category', 'user', 'tags');
 
-            return view('posts.index', [
-                'posts' => $posts,
-                'category_id' => $q['category_id']
-            ]);
+        //     return view('posts.index', [
+        //         'posts' => $posts,
+        //         'category_id' => $q['category_id']
+        //     ]);
 
-        } if(isset($q['tag_name'])){
+        // } if(isset($q['tag_name'])){
 
+        //     $posts = Post::latest()->where('content', 'like', "%{$q['tag_name']}%")->paginate(5);
+        //     $posts->load('category', 'user', 'tags');
+
+        //     return view('posts.index', [
+        //         'posts' => $posts,
+        //         'tag_name' => $q['tag_name']
+        //     ]);
+
+        // }else {
+        //     $posts = Post::latest()->paginate(5);
+        //     $posts->load('category', 'user', 'tags');
+
+        //     return view('posts.index', [
+        //         'posts' => $posts,
+        //     ]);
+        // }
+
+         if(isset($q['tag_name'])){
             $posts = Post::latest()->where('content', 'like', "%{$q['tag_name']}%")->paginate(5);
-            $posts->load('category', 'user', 'tags');
+            $posts->load('user', 'tags');
 
             return view('posts.index', [
                 'posts' => $posts,
                 'tag_name' => $q['tag_name']
             ]);
-
         }else {
             $posts = Post::latest()->paginate(5);
-            $posts->load('category', 'user', 'tags');
+            $posts->load('user', 'tags');
 
             return view('posts.index', [
                 'posts' => $posts,
@@ -72,17 +89,11 @@ class PostController extends Controller
         if(!empty($request->file('image'))){
             if($request->file('image')->isValid()) {
                 $post = new Post;
-                // $input = $request->only($post->getFillable());
                 $post->user_id = $request->user_id;
-                $post->category_id = $request->category_id;
+                // $post->category_id = $request->category_id;
                 $post->content = $request->content;
                 $post->title = $request->title;
-    
-                // $file = $request->file('image');
-                // $name = $file->getClientOriginalName();
-                //アスペクト比を維持、画像サイズを横幅1080pxにして保存する。
-                // InterventionImage::make($file)->resize(1080, null, function ($constraint) {$constraint->aspectRatio();})->save(public_path('/image/' . $filename ) );;
-    
+       
                 $filename = $request->file('image')->store('public/image');
     
                 $post->image = basename($filename);
@@ -110,7 +121,7 @@ class PostController extends Controller
             $post = new Post;
             // $input = $request->only($post->getFillable());
             $post->user_id = $request->user_id;
-            $post->category_id = $request->category_id;
+            // $post->category_id = $request->category_id;
             $post->content = $request->content;
             $post->title = $request->title;
 
@@ -146,7 +157,8 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        $post->load('category','user','comments.user'); //遅延ローディング
+    // $post->load('category','user','comments.user');遅延ローディング 
+        $post->load('user','comments.user'); //遅延ローディング
         
         return view('posts.show',['post'=> $post,]);
     }

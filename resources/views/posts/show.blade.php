@@ -29,12 +29,12 @@
                             {{ $post->user->name }}
                         </a>
                         投稿日時：{{$post->created_at}}
-                        <!-- title -->
-                        <p class="card-title" style = "
+                        <!-- category -->
+                        <!-- {{--<p class="card-title" style = "
                         font-size: 20px;
                         font-weight: 400;">
                             Category ： {{ $post->category->category_name }}
-                        </p>
+                        </p> --}}-->
                     </div>
                 </div>
                 
@@ -52,17 +52,18 @@
                             {{ $post->user->name }}
                         </a>
                         投稿日時：{{$post->created_at}}
-                        <!-- title -->
-                        <p class="card-title" style = "
+                        <!-- category -->
+                        <!-- {{--<p class="card-title" style = "
                         font-size: 20px;
                         font-weight: 400;">
                             Category ： {{ $post->category->category_name }}
-                        </p>
+                        </p>--}} -->
                     </div>
             </div>
             @endif
             
             @if (!empty($post->image))
+            <a href="{{ route('posts.show_pic', $post->image) }}">
             <img src="{{ asset('storage/image/'.$post->image) }}"　style= "width: 250px;
                 height: 250px;
                 object-fit: contain;
@@ -72,6 +73,7 @@
                 background: #eee;
                 border-radius: 35px;"
                 > 
+            </a>
             @else
             @endif
             <p class="card-text" style = "
