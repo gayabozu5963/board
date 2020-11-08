@@ -120,9 +120,9 @@
                 </div>
             </div>
             <div style="padding-left: 30px;">
-            <a href="{{ route('replies.create',['comment_id' => $comment->id]) }}">
-            <i class="fas fa-reply"></i>
-            </a>
+                <a href="{{ route('replies.create',['comment_id' => $comment->id]) }}">
+                    <i class="fas fa-reply"></i>
+                </a>
                 <?php $i=0; ?>
                 @foreach($comment->replies as $replie)
                 <?php $i++; ?>
@@ -131,10 +131,23 @@
                 @else
                 {{$i}}
                 @endif
-            <i class="far fa-heart"></i>
+                <!-- いいね -->
+                <div>
+                @if($comment->is_liked_by_auth_user())
+                    <a href="{{ route('comment.unlike', ['id' => $comment->id]) }}" class=""><i class="fas fa-heart"></i></a>
+                    {{ $comment->likes->count() }}
+                @else
+                    <a href="{{ route('comment.like', ['id' => $comment->id]) }}" class=""><i class="far fa-heart"></i></a>
+                    @if($comment->likes->count() == '0')
+                    @else
+                    {{ $comment->likes->count() }}
+                    @endif
+                @endif
+                </div>
             </div>
             
             <hr>
+            <!-- リプライ -->
             <div class="reply" style="padding-left: 30px;">
                 <div style="color: #494949;background: transparent;border-left: solid 5px #7db4e6;">
                     @if(!empty($comment->replies))
@@ -167,6 +180,18 @@
                             <p style="padding-left: 30px; font-size: 12px; ">
                             返信日時：{{$replie->created_at}}
                             </p>
+                            <!-- リプライ　いいね -->
+                            <div>
+                            @if($replie->is_liked_by_auth_user())
+                                <a href="{{ route('replie.unlike', ['id' => $replie->id]) }}" class=""><i class="fas fa-heart"></i></a>{{ $replie->likes->count() }}
+                            @else
+                                <a href="{{ route('replie.like', ['id' => $replie->id]) }}" class=""><i class="far fa-heart"></i></a>
+                                @if($replie->likes->count() == '0')
+                                @else
+                                {{ $replie->likes->count() }}
+                                @endif
+                            @endif
+                            </div>
                         </div>
 
                             <hr>

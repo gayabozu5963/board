@@ -35,7 +35,7 @@
                 
             </div>
 
-            <div class="form-group">
+            <!-- {{--<div class="form-group">
                     <label for="exampleFormControlSelect1">category</label>
                     <select class="form-control" id="exampleFormControlSelect1" name="category_id">
                         <option selected="">選択する</option>
@@ -43,7 +43,7 @@
                         <option value="2">cafe</option>
                         <option value="3">travel</option>
                     </select>
-                </div>
+                </div>--}} -->
 
                 <div class="form-group">
                   <label for="comment">Comment</label>

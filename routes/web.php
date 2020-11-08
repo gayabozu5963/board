@@ -39,4 +39,12 @@ Route::resource('/replies', 'ReplieController')->middleware('auth');
 
 // Route::resource('/posts/{id}', 'PostController@rep')->name('posts.rep');
 
+Route::get('/replie/like/{id}', 'ReplieController@like')->name('replie.like')->middleware('auth');
+
+Route::get('/replie/unlike/{id}', 'ReplieController@unlike')->name('replie.unlike')->middleware('auth');
+
+Route::get('/comment/like/{id}', 'CommentController@like')->name('comment.like')->middleware('auth');
+
+Route::get('/comment/unlike/{id}', 'CommentController@unlike')->name('comment.unlike')->middleware('auth');
+
 

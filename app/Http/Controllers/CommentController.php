@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\CommentRequest;
+use Illuminate\Support\Facades\Auth;
 
+use App\Like;
 use App\Comment;
 
 class CommentController extends Controller
@@ -91,5 +93,40 @@ class CommentController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+        /**
+     * 引数のIDに紐づくリプライにLIKEする
+    *
+    * @param $id リプライID
+    * @return \Illuminate\Http\RedirectResponse
+    */
+    public function like($id)
+    {
+        Like::create([
+        'comment_id' => $id,
+        'user_id' => Auth::id(),
+        ]);
+
+        session()->flash('success', 'You Liked the comment.');
+
+        return redirect()->back();
+    }
+
+    /**
+     * 引数のIDに紐づくリプライにUNLIKEする
+     *
+     * @param $id リプライID
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function unlike($id)
+    {
+        $like = Like::where('comment_id', $id)->where('user_id', Auth::id())->first();
+        $like->delete();
+
+        session()->flash('success', 'You Unliked the comment.');
+
+        return redirect()->back();
     }
 }

@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\ReplieRequest;
+use Illuminate\Support\Facades\Auth;
 use App\Comment;
 use App\Replie;
 use App\User;
+use App\Like;
 
 class ReplieController extends Controller
 {
@@ -108,5 +110,40 @@ class ReplieController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    /**
+     * 引数のIDに紐づくリプライにLIKEする
+    *
+    * @param $id リプライID
+    * @return \Illuminate\Http\RedirectResponse
+    */
+    public function like($id)
+    {
+        Like::create([
+        'replie_id' => $id,
+        'user_id' => Auth::id(),
+        ]);
+
+        session()->flash('success', 'You Liked the Reply.');
+
+        return redirect()->back();
+    }
+
+    /**
+     * 引数のIDに紐づくリプライにUNLIKEする
+     *
+     * @param $id リプライID
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function unlike($id)
+    {
+        $like = Like::where('replie_id', $id)->where('user_id', Auth::id())->first();
+        $like->delete();
+
+        session()->flash('success', 'You Unliked the Reply.');
+
+        return redirect()->back();
     }
 }
