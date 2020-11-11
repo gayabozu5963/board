@@ -79,7 +79,7 @@
             <p class="card-text" style = "
                         font-size: 20px;
                         font-weight: 600;">
-            {{$post->content}}</p>
+            {!! nl2br(e($post->content)) !!}</p>
             <hr>
         </div>
     </div>
@@ -115,7 +115,7 @@
                             投稿日時：{{$comment->created_at}}
                     </p>
                     <div style="padding-left: 30px;">
-                        <p class="card-text">{{ $comment->comment }}</p>
+                        <p class="card-text">{!! nl2br(e($comment->comment)) !!}</p>
                     </div>
                 </div>
             </div>
@@ -132,12 +132,12 @@
                 {{$i}}
                 @endif
                 <!-- いいね -->
-                <div>
+                <div >
                 @if($comment->is_liked_by_auth_user())
-                    <a href="{{ route('comment.unlike', ['id' => $comment->id]) }}" class=""><i class="fas fa-heart"></i></a>
+                    <a href="{{ route('comment.unlike', ['id' => $comment->id]) }}" ><i class="fas fa-heart heart_red"></i></a>
                     {{ $comment->likes->count() }}
                 @else
-                    <a href="{{ route('comment.like', ['id' => $comment->id]) }}" class=""><i class="far fa-heart"></i></a>
+                    <a href="{{ route('comment.like', ['id' => $comment->id]) }}" ><i class="far fa-heart heart_red"></i></a>
                     @if($comment->likes->count() == '0')
                     @else
                     {{ $comment->likes->count() }}

@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Post;
 use App\User;
+use App\Fav;
+use App\Follower;
 
 class UserController extends Controller
 {
@@ -55,17 +57,56 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(User $user,Follower $follower,Fav $fav,Post $post)
     {
         $q = \Request::query();
 
-        $posts = Post::latest()->paginate(5);
+        $posts = Post::latest();
 
-        $user->load('posts');
+
+        // indexブレードで選択したユーザのuser_idと一致するお気に入りテーブルの
+        // user_idを取得する。
+
+
+
+        $favs_post_ids = $post->load('favs');
+
+        $user_id = $user->id;
+
+
+        $favs = Fav::where('user_id', $user_id)
+        ->get();
+        
+
+        // 配列を代入する変数の初期化
+        $post_ids = array();
+
+        foreach($favs as $fav){
+            array_push($post_ids, $fav->post_id);
+        }
+
+        $fav_posts = Post::whereIn('id', $post_ids)
+        ->get();
+        
+
+
+        $user->load('posts','favs');
+
+        
+
+        $login_user = auth()->user();
+        $is_following = $login_user->isFollowing($user->id);
+        $is_followed = $login_user->isFollowed($user->id);
+        $follow_count = $follower->getFollowCount($user->id);
+        $follower_count = $follower->getFollowerCount($user->id);
 
         return view('users.show', [
             'user' => $user,
             'posts' => $posts,
+            'fav_posts' => $fav_posts,
+            'follow_count'   => $follow_count,
+            'follower_count' => $follower_count
+
         ]);
     }
 
@@ -139,6 +180,34 @@ class UserController extends Controller
 
         return redirect('/');
     }
+
+
+        // フォロー
+        public function follow(User $user)
+        {
+            $follower = auth()->user();
+
+            // フォローしているか
+            $is_following = $follower->isFollowing($user->id);
+            if(!$is_following) {
+                // フォローしていなければフォローする
+                $follower->follow($user->id);
+                return back();
+            }
+        }
+    
+        // フォロー解除
+        public function unfollow(User $user)
+        {
+            $follower = auth()->user();
+            // フォローしているか
+            $is_following = $follower->isFollowing($user->id);
+            if($is_following) {
+                // フォローしていればフォローを解除する
+                $follower->unfollow($user->id);
+                return back();
+            }
+        }
 
 
 

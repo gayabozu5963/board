@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
+
 
 class Post extends Model
 {
@@ -33,5 +35,26 @@ class Post extends Model
 
     public function tags(){
         return $this->belongsToMany('App\Tag')->withTimestamps();
+    }
+
+    public function favs()
+    {
+      return $this->hasMany(Fav::class, 'post_id');
+    }
+
+    public function is_faved_by_auth_user()
+    {
+      $id = Auth::id();
+  
+      $favers = array();
+      foreach($this->favs as $fav) {
+        array_push($favers, $fav->user_id);
+      }
+  
+      if (in_array($id, $favers)) {
+        return true;
+      } else {
+        return false;
+      }
     }
 }

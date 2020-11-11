@@ -25,7 +25,7 @@ Route::get('/posts/show_pic/{image}', 'PostController@show_pic')->name('posts.sh
 
 Route::resource('/posts', 'PostController', ['except' => ['index']]);
 
-Route::resource('/users', 'UserController');
+Route::resource('/users', 'UserController')->middleware('auth');
 
 Route::get('/user', 'UserController@index')->name('user.index')->middleware('auth');
 
@@ -37,8 +37,6 @@ Route::resource('/comments', 'CommentController', )->middleware('auth');
 
 Route::resource('/replies', 'ReplieController')->middleware('auth');
 
-// Route::resource('/posts/{id}', 'PostController@rep')->name('posts.rep');
-
 Route::get('/replie/like/{id}', 'ReplieController@like')->name('replie.like')->middleware('auth');
 
 Route::get('/replie/unlike/{id}', 'ReplieController@unlike')->name('replie.unlike')->middleware('auth');
@@ -47,4 +45,11 @@ Route::get('/comment/like/{id}', 'CommentController@like')->name('comment.like')
 
 Route::get('/comment/unlike/{id}', 'CommentController@unlike')->name('comment.unlike')->middleware('auth');
 
+
+Route::get('/post/fav/{id}', 'PostController@fav')->name('post.fav')->middleware('auth');
+Route::get('/post/unfav/{id}', 'PostController@unfav')->name('post.unfav')->middleware('auth');
+
+// フォロー/フォロー解除を追加
+Route::post('users/{user}/follow', 'UserController@follow')->name('follow')->middleware('auth');
+Route::delete('users/{user}/unfollow', 'UserController@unfollow')->name('unfollow')->middleware('auth');
 

@@ -52,7 +52,7 @@
                                 </a>
                             </h5> --}} -->
 
-                            <p class="card-text">{{ $post->content }}</p>
+                            <p class="card-text">{!! nl2br(e($post->content)) !!}</p>
 
                             @if (!empty($post->image))
                             <a href="{{ route('posts.show_pic', $post->image) }}">

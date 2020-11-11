@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Post;
 use App\User;
 use App\Tag;
+use App\Fav;
 use App\Comment;
 
 class PostController extends Controller
@@ -232,5 +233,39 @@ class PostController extends Controller
         return view('posts.show_pict', [
             'pict' => $pict,
         ]);
+    }
+
+    /**
+     * 引数のIDに紐づくリプライにLIKEする
+    *
+    * @param $id リプライID
+    * @return \Illuminate\Http\RedirectResponse
+    */
+    public function fav($id)
+    {
+        Fav::create([
+        'post_id' => $id,
+        'user_id' => Auth::id(),
+        ]);
+
+        session()->flash('success', 'You Liked the Post.');
+
+        return redirect()->back();
+    }
+
+    /**
+     * 引数のIDに紐づくリプライにUNLIKEする
+     *
+     * @param $id リプライID
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function unfav($id)
+    {
+        $fav = Fav::where('post_id', $id)->where('user_id', Auth::id())->first();
+        $fav->delete();
+
+        session()->flash('success', 'You Unliked the Post.');
+
+        return redirect()->back();
     }
 }

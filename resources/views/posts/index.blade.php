@@ -126,7 +126,15 @@
             <!-- 詳細 -->
             <a href="{{ route('posts.show' ,$post->id)}}" class="btn btn-primary">スレッド詳細</a>
             <h5 class="card-title"style= "text-align: right;">
-            <i class="far fa-star"></i>
+
+            <div>
+                @if($post->is_faved_by_auth_user())
+                    <a href="{{ route('post.unfav', ['id' => $post->id]) }}"><i class="fas fa-star"></i></a>
+                @else
+                    <a href="{{ route('post.fav', ['id' => $post->id]) }}"><i class="far fa-star"></i></a>
+                @endif
+            </div>
+
             </h5>
             <hr>
         </div>
