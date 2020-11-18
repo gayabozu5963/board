@@ -11,6 +11,9 @@ use App\Post;
 use App\User;
 use App\Fav;
 use App\Follower;
+use App\Comment;
+use App\Like;
+
 
 class UserController extends Controller
 {
@@ -57,26 +60,19 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user,Follower $follower,Fav $fav,Post $post)
+    public function show(User $user,Follower $follower,Comment $comment)
     {
         $q = \Request::query();
 
-        $posts = Post::latest();
-
-
-        // indexブレードで選択したユーザのuser_idと一致するお気に入りテーブルの
         // user_idを取得する。
-
-
-
-        $favs_post_ids = $post->load('favs');
-
         $user_id = $user->id;
-
-
+        
+        $posts = Post::where('user_id', $user_id)
+        ->get();
         $favs = Fav::where('user_id', $user_id)
         ->get();
-        
+        $likes = Like::where('user_id',$user_id)
+        ->get();
 
         // 配列を代入する変数の初期化
         $post_ids = array();
@@ -87,10 +83,21 @@ class UserController extends Controller
 
         $fav_posts = Post::whereIn('id', $post_ids)
         ->get();
-        
 
+
+        $comment_ids = array();
+
+        foreach($likes as $like){
+            array_push($comment_ids, $like->comment_id);
+        }
+        $like_comment_posts = Comment::whereIn('id', $comment_ids)
+        ->get();
+
+        // $like_comments_posts = Post
 
         $user->load('posts','favs');
+
+        $like_comment_posts->load('user');
 
         
 
@@ -104,6 +111,7 @@ class UserController extends Controller
             'user' => $user,
             'posts' => $posts,
             'fav_posts' => $fav_posts,
+            'like_comment_posts' => $like_comment_posts,
             'follow_count'   => $follow_count,
             'follower_count' => $follower_count
 
@@ -163,6 +171,7 @@ class UserController extends Controller
     
                 $user->name = $request->name;
                 $user->email = $request->email;
+                $user->self = $request->self;
     
                 $filename = $request->file('pro_image')->store('public/pro_image');
     
@@ -175,6 +184,7 @@ class UserController extends Controller
 
             $user->name = $request->name;
             $user->email = $request->email;
+            $user->self = $request->self;
             $user->save();
         }
 

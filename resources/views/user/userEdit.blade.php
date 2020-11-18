@@ -41,12 +41,9 @@
         @else
         プロフィール画像なし
         @endif
-        <div>
-        
-      
-      <p>ID：{{ $authUser->id }}</p>
+        </div>  
 
-    </div>  
+
         <form method="post" action="{{ route('user.userUpdate') }}" enctype="multipart/form-data">
         {{ csrf_field() }}
 
@@ -57,26 +54,28 @@
             </div>
 
 
-            <div class="form-group">
-                <label for="exampleFormControlFile1">プロフィール写真変更
-                <i class="far fa-image"></i>
-                </label>
-                <input type="file" name="pro_image">                
+            <div class="form-group"><p>プロフィール写真<i class="far fa-image"></i></p>
+                <input type="file" name="pro_image">
             </div>
 
-                <div class="form-group">
-                    email：<input type="email" name="email" value="{{ $authUser->email }}">
-                </div>
+            <div class="form-group">
+                <p>email</p><input type="email" name="email" value="{{ $authUser->email }}">
+            </div>
 
-                <div class="form-group">
-                    <input type="text" class="userForm" name="name" placeholder="User" value="{{ $authUser->name }}">
-                    @if($errors->has('name'))<div class="error">{{ $errors->first('name') }}</div>@endif
-                </div>
+            <div class="form-group">
+            <p>user name</p><input type="text" class="userForm" name="name" placeholder="User" value="{{ $authUser->name }}">
+                @if($errors->has('name'))<div class="error">{{ $errors->first('name') }}</div>@endif
+            </div>
 
-                <div class="buttonSet">
-                <input type="submit" name="send" value="ユーザー変更" class="btn btn-primary btn-sm btn-done">
-                <a href="{{ route('user.index') }}" class="btn btn-primary btn-sm">戻る</a>
-                </div>
+            <div class="form-group">
+            <p>自己紹介</p>
+                  <textarea class="form-control" rows="5" name="self" placeholder="自己紹介" value="{{ $authUser->self }}">{{ $authUser->self }}</textarea>
+            </div>
+
+            <div class="buttonSet">
+            <input type="submit" name="send" value="プロフィール変更" class="btn btn-primary btn-sm btn-done">
+            <a href="{{ route('user.index') }}" class="btn btn-primary btn-sm">戻る</a>
+            </div>
             
         </form>
 

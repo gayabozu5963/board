@@ -1,8 +1,8 @@
 @extends('layouts.app')
 @section('content')
-<div class="panel-heading"style = "
-                        font-size: 20px;
-                        font-weight: 600;">Title：{{ $post->title }}</div>
+<div class="panel-heading"style = "font-size: 20px;font-weight: 600;">
+    Title：{{ $post->title }}
+</div>
 <div class="panel-body">
     @if (session('status'))
         <div class="alert alert-success">
@@ -17,33 +17,23 @@
                     <img src="{{ asset('storage/pro_image/'.$post->user->pro_image) }}" class="pro_image" 
                         style= "width: 50px;
                         height: 50px;
-                        background: #eee;
                         border-radius: 50%;
                         box-shadow: 0 2px 3px 1px rgb(0, 0, 0);
                         object-fit: cover;
                         ">
-                
                     <div style = "flex-direction: column; padding-left: 10px;">
                         <!-- user name -->
                         <a href="{{ route('users.show', $post->user_id) }}">
                             {{ $post->user->name }}
                         </a>
                         投稿日時：{{$post->created_at}}
-                        <!-- category -->
-                        <!-- {{--<p class="card-title" style = "
-                        font-size: 20px;
-                        font-weight: 400;">
-                            Category ： {{ $post->category->category_name }}
-                        </p> --}}-->
                     </div>
                 </div>
-                
             @else
             <div style = "display: flex;">
                 <img src="{{ asset('storage/noimage/noimage.png') }}" class="noimage" 
                     style= "width: 50px;
                     height: 50px;
-                    background: #eee;
                     border-radius: 50%;
                     ">
                     <div style = "flex-direction: column; padding-left: 10px;">
@@ -52,40 +42,24 @@
                             {{ $post->user->name }}
                         </a>
                         投稿日時：{{$post->created_at}}
-                        <!-- category -->
-                        <!-- {{--<p class="card-title" style = "
-                        font-size: 20px;
-                        font-weight: 400;">
-                            Category ： {{ $post->category->category_name }}
-                        </p>--}} -->
                     </div>
             </div>
             @endif
-            
             @if (!empty($post->image))
             <a href="{{ route('posts.show_pic', $post->image) }}">
-            <img src="{{ asset('storage/image/'.$post->image) }}"　style= "width: 250px;
-                height: 250px;
-                object-fit: contain;
-                
-                margin-right: 3%;
-                <!-- border: 2px solid #ccc; -->
-                background: #eee;
-                border-radius: 35px;"
-                > 
+            <h5>
+            <img src="{{ asset('storage/image/'.$post->image) }}"　style= "width: 250px;height: 250px;object-fit: contain;margin-right: 3%;border-radius: 35px;"> 
+            </h5>
             </a>
             @else
             @endif
-            <p class="card-text" style = "
-                        font-size: 20px;
-                        font-weight: 600;">
+            <p class="card-text" style = "font-size: 20px;font-weight: 600;">
             {!! nl2br(e($post->content)) !!}</p>
             <hr>
         </div>
     </div>
-
     <div class="p-3">
-        <h4 class="card-title">スレッド一覧　</h4>
+        <h4 class="">スレッド一覧　</h4>
         <hr>
         @foreach($post->comments as $comment)
             <div class="card">
@@ -95,7 +69,6 @@
                             <img src="{{ asset('storage/pro_image/'.$comment->user->pro_image) }}" class="pro_image" 
                                 style= "width: 25px;
                                 height: 25px;
-                                background: #eee;
                                 border-radius: 50%;
                                 box-shadow: 0 2px 3px 1px rgb(0, 0, 0);
                                 object-fit: cover;
@@ -104,11 +77,9 @@
                             <img src="{{ asset('storage/noimage/noimage.png') }}" class="noimage" 
                                 style= "width: 25px;
                                 height: 25px;
-                                background: #eee;
                                 border-radius: 50%;
                                 ">
                         @endif
-                        
                             <a href="{{ route('users.show', $comment->user->id) }}">
                                 {{ $comment->user->name }}
                             </a>
@@ -132,7 +103,7 @@
                 {{$i}}
                 @endif
                 <!-- いいね -->
-                <div >
+                <div>
                 @if($comment->is_liked_by_auth_user())
                     <a href="{{ route('comment.unlike', ['id' => $comment->id]) }}" ><i class="fas fa-heart heart_red"></i></a>
                     {{ $comment->likes->count() }}
@@ -145,7 +116,6 @@
                 @endif
                 </div>
             </div>
-            
             <hr>
             <!-- リプライ -->
             <div class="reply" style="padding-left: 30px;">
@@ -157,7 +127,6 @@
                                 <img src="{{ asset('storage/pro_image/'.$replie->user->pro_image ) }}" class="pro_image" 
                                 style= "width: 25px;
                                 height: 25px;
-                                background: #eee;
                                 border-radius: 50%;
                                 box-shadow: 0 2px 3px 1px rgb(0, 0, 0);
                                 object-fit: cover;
@@ -166,11 +135,9 @@
                                 <img src="{{ asset('storage/noimage/noimage.png') }}" class="noimage" 
                                     style= "width: 25px;
                                     height: 25px;
-                                    background: #eee;
                                     border-radius: 50%;
                                     ">
                             @endif
-                        
                             <a href="{{ route('users.show', $replie->user->id) }}">
                                 {{ $replie->user->name }}
                             </a>
@@ -193,7 +160,6 @@
                             @endif
                             </div>
                         </div>
-
                             <hr>
                         @endforeach
                     @else
@@ -203,6 +169,5 @@
         @endforeach
         <a href="{{ route('comments.create', ['post_id' => $post->id]) }}" class="btn btn-primary">コメントする <i class="fas fa-comments"></i></a>
     </div>
- 
 </div>
 @endsection

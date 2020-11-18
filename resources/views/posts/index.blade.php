@@ -11,7 +11,7 @@
                             <form action="{{ route('posts.search') }}" method="get">
                             {{csrf_field()}}
                                 <div class="input-group">
-                                        <input type="text" class="form-control"　placeholder="search" name="search" value="">
+                                        <input type="text" class="form-control"　placeholder="search" name="search" value="" style="min-width:200px">
                                             <span class="input-group-btn">
                                                 <button class="btn btn-default" type="submit">
                                                 <i class='fas fa-search'></i>
@@ -41,62 +41,37 @@
         <div class="card-body">
             <!--user image -->
             @if(!empty($post->user->pro_image))
-                <div style = "display: flex;">
-                    <img src="{{ asset('storage/pro_image/'.$post->user->pro_image) }}" class="pro_image" 
-                        style= "width: 50px;
-                        height: 50px;
-                        background: #eee;
-                        border-radius: 50%;
-                        box-shadow: 0 2px 3px 1px rgb(0, 0, 0);
-                        object-fit: cover;
-                        ">
-                
-                    <div style = "flex-direction: column; padding-left: 10px;">
+                <div style = "display: flex; word-wrap: break-word;">
+                    <img src="{{ asset('storage/pro_image/'.$post->user->pro_image) }}" class="pro_image">
+                    <div style = "flex-direction: column; padding-left: 10px;max-width: 80%;">
                         <!-- user name -->
                         <a href="{{ route('users.show', $post->user_id) }}">
                             {{ $post->user->name }}
                         </a>
                         投稿日時：{{$post->created_at}}
                         <!-- title -->
-                        <p class="card-title" style = "
-                        font-size: 20px;
-                        font-weight: 600;">
+                        <p class="card-title">
                             Title： {{ $post->title }}
                         </p>
                     </div>
                 </div>
-                
+            <!--user noimage -->
             @else
             <div style = "display: flex;">
-                <img src="{{ asset('storage/noimage/noimage.png') }}" class="noimage" 
-                    style= "width: 50px;
-                    height: 50px;
-                    background: #eee;
-                    border-radius: 50%;
-                    ">
-                    <div style = "flex-direction: column; padding-left: 10px;">
+                <img src="{{ asset('storage/noimage/noimage.png') }}" class="pro_image">
+                    <div style = "flex-direction: column; padding-left: 10px; max-width: 80%;">
                         <!-- user name -->
                         <a href="{{ route('users.show', $post->user_id) }}">
                             {{ $post->user->name }}
                         </a>
                         投稿日時：{{$post->created_at}}
                         <!-- title -->
-                        <p class="card-title" style = "
-                        font-size: 20px;
-                        font-weight: 600;">
+                        <p class="card-title">
                             Title： {{ $post->title }}
                         </p>
                     </div>
             </div>
             @endif
-            
-            <!-- カテゴリー -->
-            <!-- {{-- <p>
-            Category ： 
-                <a href="{{ route('posts.index', ['category_id' => $post->category_id]) }}">
-                    {{ $post->category->category_name }}
-                </a>
-            </p> --}}-->
 
             <!-- image -->
             @if (!empty($post->image))
@@ -112,7 +87,7 @@
             @endif
             
             <!-- tag -->
-            <h5 class="card-title">
+            <h5>
                 @foreach($post->tags as $tag)
                     @if (isset($tag->tag_name))
                     <i class="fas fa-tags"></i>
@@ -125,16 +100,14 @@
             </h5>
             <!-- 詳細 -->
             <a href="{{ route('posts.show' ,$post->id)}}" class="btn btn-primary">スレッド詳細</a>
-            <h5 class="card-title"style= "text-align: right;">
-
-            <div>
-                @if($post->is_faved_by_auth_user())
-                    <a href="{{ route('post.unfav', ['id' => $post->id]) }}"><i class="fas fa-star"></i></a>
-                @else
-                    <a href="{{ route('post.fav', ['id' => $post->id]) }}"><i class="far fa-star"></i></a>
-                @endif
-            </div>
-
+            <h5 style= "text-align: right;">
+                <div>
+                    @if($post->is_faved_by_auth_user())
+                        <a href="{{ route('post.unfav', ['id' => $post->id]) }}"><i class="fas fa-star"></i></a>
+                    @else
+                        <a href="{{ route('post.fav', ['id' => $post->id]) }}"><i class="far fa-star"></i></a>
+                    @endif
+                </div>
             </h5>
             <hr>
         </div>

@@ -24,7 +24,8 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'pro_image' => 'nullable|file|image',
+            'self' => 'max:255',
+            'pro_image' => 'nullable|file|image'
         ];
     }
 }
