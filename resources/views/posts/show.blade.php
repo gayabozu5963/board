@@ -1,7 +1,9 @@
 @extends('layouts.app')
 @section('content')
-<div class="panel-heading"style = "font-size: 20px;font-weight: 600;">
-    Title：{{ $post->title }}
+<div class="panel-heading">
+    <h5 class="card-title">
+        <p style="word-wrap: break-word;">title ：{!! nl2br(e($post->title)) !!}</p>    
+    </h5>
 </div>
 <div class="panel-body">
     @if (session('status'))
@@ -85,8 +87,9 @@
                             </a>
                             投稿日時：{{$comment->created_at}}
                     </p>
+
                     <div style="padding-left: 30px;">
-                        <p class="card-text">{!! nl2br(e($comment->comment)) !!}</p>
+                        <p style="word-wrap: break-word;">{!! nl2br(e($comment->comment)) !!}</p>    
                     </div>
                 </div>
             </div>
@@ -116,10 +119,12 @@
                 @endif
                 </div>
             </div>
+            <input type="button" value="返信を表示" onclick="clickBtn1()" />
             <hr>
+            
             <!-- リプライ -->
             <div class="reply" style="padding-left: 30px;">
-                <div style="color: #494949;background: transparent;border-left: solid 5px #7db4e6;">
+                <div id="p1" style="color: #494949;background: transparent;border-left: solid 5px #7db4e6;">
                     @if(!empty($comment->replies))
                         @foreach($comment->replies as $replie)
                         <div style="padding-left: 20px;">
@@ -142,7 +147,7 @@
                                 {{ $replie->user->name }}
                             </a>
                             <div style="padding-left: 30px;">
-                            <p class="card-text">{{ $replie->replie }}</p>
+                            <p class="card-text">{!! nl2br(e($replie->replie)) !!}</p>
                             </div>
                             <p style="padding-left: 30px; font-size: 12px; ">
                             返信日時：{{$replie->created_at}}
