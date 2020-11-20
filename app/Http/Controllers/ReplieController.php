@@ -31,10 +31,19 @@ class ReplieController extends Controller
     {
         $q = \Request::query();
 
-        $comment_id = $request->all();
+        $comment_id = $request->all('comment_id');
+
+        $commentid = $request->input('comment_id');
+
+        $replie_id = $request->input('replie_id');
+
+
+        $replies = Replie::where('replies.id', $replie_id)
+        ->get();
+        $replies->load('user');
 
         $comments = Comment::with(['user', 'replies', 'replies.user'])
-        ->where('comments.id', $comment_id)
+        ->where('comments.id', $commentid)
         ->get();
 
         $post_id = \App\Comment::select('post_id')
@@ -44,6 +53,7 @@ class ReplieController extends Controller
         return view('replies.create', [
             'comment_id' => $q['comment_id'],
             'comments' => $comments,
+            'replies' => $replies,
             'post_id' => $post_id,
         ]);
     }
@@ -59,6 +69,7 @@ class ReplieController extends Controller
         $replie = new Replie;
         $input = $request->only($replie->getFillable());
         $replie = $replie->create($input);
+        
 
         $post_id = $request->get('post_id');
 
@@ -128,7 +139,9 @@ class ReplieController extends Controller
 
         session()->flash('success', 'You Liked the Reply.');
 
-        return redirect()->back();
+        return redirect()->to(url()->previous() . "#{$id}");
+
+        // return redirect()->back();
     }
 
     /**
@@ -144,6 +157,9 @@ class ReplieController extends Controller
 
         session()->flash('success', 'You Unliked the Reply.');
 
-        return redirect()->back();
+        return redirect()->to(url()->previous() . "#{$id}");
+
+
+        // return redirect()->back();
     }
 }

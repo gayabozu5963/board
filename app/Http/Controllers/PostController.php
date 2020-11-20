@@ -9,6 +9,7 @@ use App\Post;
 use App\User;
 use App\Tag;
 use App\Fav;
+use App\Like;
 use App\Comment;
 
 class PostController extends Controller
@@ -158,10 +159,13 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+
     // $post->load('category','user','comments.user');遅延ローディング 
         $post->load('user','comments.user'); //遅延ローディング
         
-        return view('posts.show',['post'=> $post,]);
+        return view('posts.show',[
+            'post'=> $post
+        ]);
     }
 
     /**

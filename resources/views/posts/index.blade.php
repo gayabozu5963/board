@@ -100,6 +100,15 @@
             </h5>
             <!-- 詳細 -->
             <a href="{{ route('posts.show' ,$post->id)}}" class="btn btn-primary">スレッド詳細</a>
+
+            
+            <div class="row justify-content-center">
+                        <like-component
+                            :post="{{ json_encode($post)}}"
+                        ></like-component>
+            </div>
+
+
             <h5 style= "text-align: right;">
                 <div>
                     @if($post->is_faved_by_auth_user())

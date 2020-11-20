@@ -53,3 +53,5 @@ Route::get('/post/unfav/{id}', 'PostController@unfav')->name('post.unfav')->midd
 Route::post('users/{user}/follow', 'UserController@follow')->name('follow')->middleware('auth');
 Route::delete('users/{user}/unfollow', 'UserController@unfollow')->name('unfollow')->middleware('auth');
 
+
+

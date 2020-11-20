@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\CommentRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\URL;
 
 use App\Like;
 use App\Comment;
@@ -18,7 +20,7 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -111,7 +113,11 @@ class CommentController extends Controller
 
         session()->flash('success', 'You Liked the comment.');
 
-        return redirect()->back();
+        // return Redirect::to(URL::previous() . "#$id");
+
+        return redirect()->to(url()->previous() . "#{$id}");
+
+        // return redirect()->back();
     }
 
     /**
@@ -127,6 +133,10 @@ class CommentController extends Controller
 
         session()->flash('success', 'You Unliked the comment.');
 
-        return redirect()->back();
+        // return Redirect::to(URL::previous() . "#$id");
+
+        return redirect()->to(url()->previous() . "#{$id}");
+
+        // return redirect()->back();
     }
 }

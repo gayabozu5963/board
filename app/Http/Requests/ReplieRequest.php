@@ -26,6 +26,7 @@ class ReplieRequest extends FormRequest
         return [
             'user_id' => 'required|numeric',
             'comment_id' => 'required|numeric',
+            'repliereplie_id' =>'numeric'
         ];
     }
 }

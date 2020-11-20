@@ -30,7 +30,7 @@ class Comment extends Model
       return $this->hasMany(Like::class, 'comment_id');
     }
 
-        /**
+    /**
     * リプライにLIKEを付いているかの判定
     *
     * @return bool true:Likeがついてる false:Likeがついてない

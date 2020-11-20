@@ -9,7 +9,7 @@ class Replie extends Model
 
 
     protected $fillable = [
-        'replie','user_id','comment_id'
+        'replie','user_id','comment_id','repliereplie_id'
     ];
 
     // リプライは一人の投稿者に従属
