@@ -1,17 +1,18 @@
 @extends('layouts.app')
 @section('title','ユーザー情報')
 @section('content')
-<div>
-    <div class="panel-heading" style="text-align:center;">
-        {{ $user->name }}さんのプロフィール
-    </div>
+<div >
+    <p class="card-title" style="text-align:center;">
+        {{ $user->name }}
+    </p>
+    
 </div>
 <div class="panel-body" >
     <div>
         <div style="text-align:center;">
-            <p>名前：{{ $user->name }}</p>
             @if(Auth::user()->id == $user->id)
             <p><i class="fas fa-lock"></i>メールアドレス：{{ $user->email }}</p>
+            
             @else
             @endif
             @if(!empty($user->pro_image))
@@ -31,6 +32,15 @@
                 ">
             @endif
         </div>
+
+        <div style="text-align:center;">
+        @if(Auth::user()->id == $user->id)
+        <br>
+            <a href="{{ route('user.userEdit') }}" class="btn btn-primary btn-sm">プロフィールの編集</a>
+        @else
+        @endif
+        </div>
+
         
         <br>
         @if($user->self)

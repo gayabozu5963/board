@@ -19,6 +19,8 @@ Auth::routes();
 
 Route::get('/', 'PostController@index')->name('posts.index');
 
+Route::post('/', 'PostController@store')->name('posts.store');
+
 Route::get('/posts/search', 'PostController@search')->name('posts.search');
 
 Route::get('/posts/show_pic/{image}', 'PostController@show_pic')->name('posts.show_pic');

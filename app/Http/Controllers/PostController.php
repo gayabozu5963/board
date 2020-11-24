@@ -10,7 +10,8 @@ use App\User;
 use App\Tag;
 use App\Fav;
 use App\Like;
-use App\Comment;
+use App\Replie;
+
 
 class PostController extends Controller
 {
@@ -160,11 +161,40 @@ class PostController extends Controller
     public function show(Post $post)
     {
 
-    // $post->load('category','user','comments.user');遅延ローディング 
-        $post->load('user','comments.user'); //遅延ローディング
+        $post->load('user','comments'); //遅延ローディング
+
+
+        $comments = $post->comments;
+
+
+        $comment_ids = array();
+
+        foreach($comments as $comment){
+            array_push($comment_ids, $comment->id);
+        }
+
+        $repliereplies = 0;
+
+        if($comment_ids){
+            $comment_replies = Replie::whereIn('comment_id', $comment_ids)
+            ->get();
+    
+            $repliereplie_ids = array();
+    
+            foreach($comment_replies as $comment_replie){
+                array_push($repliereplie_ids, $comment_replie->repliereplie_id);
+            }
+
+            $repliereplies = Replie::whereIn('repliereplie_id', $repliereplie_ids)
+            ->get();
+        }
+
+        
+
         
         return view('posts.show',[
-            'post'=> $post
+            'post'=> $post,
+            'repliereplies'=> $repliereplies
         ]);
     }
 

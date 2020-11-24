@@ -12,17 +12,6 @@ function clickBtn1(reply_id){
 }
 
 
-function clickBtn2(repliereplie_id){
-	const p2 = document.getElementById(repliereplie_id);
-
-	if(p2.style.display=="block"){
-		// noneで非表示
-		p2.style.display ="none";
-	}else{
-		// blockで表示
-		p2.style.display ="block";
-	}
-}
 
 //  var elements = document.getElementsByClassName("reply_a");
 
@@ -31,4 +20,19 @@ function clickBtn2(repliereplie_id){
 //  elements.forEach(x => x.style.display="none");
 
 
+
+// モーダルが開いた時の処理
+$('#modalForm').on('show.bs.modal', function (event) {
+    //モーダルを開いたボタンを取得
+    var button = $(event.relatedTarget);
+    //モーダル自身を取得
+    var modal = $(this);
+    //data-cusnoの値取得
+    var cusnoVal = button.data('cusno');
+    // input 欄に値セット
+    modal.find('.modal-body input#cusno').val(cusnoVal);
+    //data-visitdayの値取得
+    var visitdayVal = button.data('visitday');
+    modal.find('.modal-body input#oldday').val(visitdayVal);
+});
 

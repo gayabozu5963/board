@@ -31,6 +31,7 @@
 </div>
 <div class="panel-heading">Board</div>
 <div class="panel-body" >
+
     @if (session('status'))
         <div class="alert alert-success">
             {{ session('status') }}
@@ -74,13 +75,15 @@
             @endif
 
             <!-- image -->
+            
             @if (!empty($post->image))
             <a href="{{ route('posts.show_pic', $post->image) }}">
             <img src="{{ asset('storage/image/'.$post->image) }}"　style= "width: 250px;
                 height: 250px;
                 object-fit: contain;
                 margin-right: 3%;
-                border-radius: 35px;"
+                border-radius: 35px;
+                text-align:center;"
                 >
             </a>
             @else
@@ -126,6 +129,8 @@
               {{ $posts->appends(['category_id' => $category_id])->links() }} 
               @elseif(isset($tag_name)) --}}  -->
 
+              
+
     @if(isset($tag_name))
     {{ $posts->appends(['tag_name' => $tag_name])->links() }}
 
@@ -135,5 +140,81 @@
     @else
     {{ $posts->links() }} <!-- ページネーション -->
     @endif　
+
+
+    <!-- モーダル用 -->
+    @guest
+    @else
+    <div>
+        <div class="panel-body">
+            @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
+
+            <div class="card">
+                <div class="card-body">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                    <a class="fixed_btn" class="btn btn-success" data-toggle="modal" data-target="#modalForm" data-cusno=1 data-visitday="2019-07-01"style= "text-align: center;">
+                        <i class="fas fa-heartbeat"data-backdrop="true"></i> 
+                    </a>
+                    <!-- Modal の中身 -->
+                    <div class="modal fade" id="modalForm" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                            <!-- Modal ヘッダー -->
+                            <div class="modal-header">
+                                投稿
+                                <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">×</span>
+                                <span class="sr-only">閉じる</span>
+                                </button>
+                            </div>
+
+                            <form role="form"id="form1"action="{{ route('posts.store')}}" method="POST" enctype="multipart/form-data">
+                                {{ csrf_field() }}
+                                <!-- Modal ボディー -->
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="title">title</label>
+                                        <input id="title" type="text" class="form-control"  placeholder="title" name="title" >
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="image">picture
+                                            <i class="far fa-image"></i>
+                                        </label>
+                                            <input type="file" class="form-control-file" id="image" name="image" >
+                                    </div>
+
+                                    <div class="form-group">
+                                            <label for="comment">Comment</label>
+                                            <textarea class="form-control" rows="5" id="comment" name="content"></textarea>
+                                    </div>
+
+                                    <input type="hidden" name="user_id" value="{{ Auth::id() }}">
+                                </div>
+                                <!-- Modal フッター -->
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endguest
+
 </div>
 @endsection

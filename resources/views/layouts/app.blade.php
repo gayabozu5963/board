@@ -79,7 +79,7 @@
                                 <ul class="dropdown-menu">
                                     <li>
                                         <!-- <a href="{{route('users.edit', $user = \Auth::user())}}" class="item" style= "text-align: right; padding: 3px 35px;">プロフィール <i class="fas fa-user-circle"></i></i></a> -->
-                                        <a href="{{route('user.index')}}" class="item" style= "text-align: right; padding: 3px 35px;">プロフィール <i class="fas fa-user-circle"></i></i></a>
+                                        <a href="{{ route('users.show', Auth::user()->id) }}" class="item" style= "text-align: right; padding: 3px 35px;">プロフィール <i class="fas fa-user-circle"></i></i></a>
                                         <a href="{{route('posts.create')}}" class="item" style= "text-align: right; padding: 3px 35px;">投稿する <i class="fas fa-comment-dots"></i></a>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
@@ -112,5 +112,6 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/open.js') }}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     </body>
 </html>
