@@ -59,6 +59,10 @@
             </div>
 
             <div class="form-group">
+                <p>User ID</p><input type="text" name="unique_id" value="{{ $authUser->unique_id }}">
+            </div>
+
+            <div class="form-group">
                 <p>email</p><input type="email" name="email" value="{{ $authUser->email }}">
             </div>
 

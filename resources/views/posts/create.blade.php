@@ -24,7 +24,7 @@
 
             <div class="form-group">
                 <label for="exampleInputEmail1">title</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="title" name="title">
+                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="title" name="title" autocomplete="off">
             </div>
 
             <div class="form-group">

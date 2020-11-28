@@ -40,7 +40,7 @@
     @foreach($posts as $post)
     <div class="card">
         <div class="card-body">
-            <!--user image -->
+            <!--ユーザー画像 -->
             @if(!empty($post->user->pro_image))
                 <div style = "display: flex; word-wrap: break-word;">
                     <img src="{{ asset('storage/pro_image/'.$post->user->pro_image) }}" class="pro_image">
@@ -49,7 +49,7 @@
                         <a href="{{ route('users.show', $post->user_id) }}">
                             {{ $post->user->name }}
                         </a>
-                        投稿日時：{{$post->created_at}}
+                        {{'@'.$post->user->unique_id}}
                         <!-- title -->
                         <p class="card-title">
                             Title： {{ $post->title }}
@@ -74,8 +74,7 @@
             </div>
             @endif
 
-            <!-- image -->
-            
+            <!-- 投稿画像 -->
             @if (!empty($post->image))
             <a href="{{ route('posts.show_pic', $post->image) }}">
             <img src="{{ asset('storage/image/'.$post->image) }}"　style= "width: 250px;
@@ -101,26 +100,30 @@
                     @endif
                 @endforeach
             </h5>
-            <!-- 詳細 -->
+            <!-- スレッド詳細 -->
             <a href="{{ route('posts.show' ,$post->id)}}" class="btn btn-primary">スレッド詳細</a>
 
             
             <div class="row justify-content-center">
                         <like-component
-                            :post="{{ json_encode($post)}}"
-                        ></like-component>
+                            :post="{{ json_encode($post)}}"></like-component>
             </div>
 
-
-            <h5 style= "text-align: right;">
-                <div>
-                    @if($post->is_faved_by_auth_user())
-                        <a href="{{ route('post.unfav', ['id' => $post->id]) }}"><i class="fas fa-star"></i></a>
-                    @else
-                        <a href="{{ route('post.fav', ['id' => $post->id]) }}"><i class="far fa-star"></i></a>
-                    @endif
+            <div style = "display: flex; word-wrap: break-word;">
+            <!-- 投稿日時 -->
+                <p>投稿日時：{{$post->created_at}}</p>
+            <!-- お気に入りボタン -->
+                <div style = "flex-direction: column; margin-left: auto;">
+                    <div >
+                        @if($post->is_faved_by_auth_user())
+                            <a href="{{ route('post.unfav', ['id' => $post->id]) }}"><i class="fas fa-star"></i></a>
+                        @else
+                            <a href="{{ route('post.fav', ['id' => $post->id]) }}"><i class="far fa-star"></i></a>
+                        @endif
+                    </div>
                 </div>
-            </h5>
+            </div>
+            
             <hr>
         </div>
     </div>
@@ -187,7 +190,7 @@
                                 <div class="modal-body">
                                     <div class="form-group">
                                         <label for="title">title</label>
-                                        <input id="title" type="text" class="form-control"  placeholder="title" name="title" >
+                                        <input id="title" type="text" class="form-control"  placeholder="title" name="title" autocomplete="off">
                                     </div>
                                     <div class="form-group">
                                         <label for="image">picture

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Rules\AlphaNumHalf;//半角英数判定
+use App\Rules\AlphaNumHalfUserId;//
 
 class RegisterController extends Controller
 {
@@ -53,6 +54,7 @@ class RegisterController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             // 'password' => 'required|string|min:6|confirmed',
             'password' => ['required',new AlphaNumHalf,'min:6','confirmed'],
+            'unique_id' => ['required',new AlphaNumHalfUserId,'min:6','string','max:20','unique:users'],
         ]);
     }
 
@@ -68,6 +70,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'unique_id' => $data['unique_id'],
         ]);
     }
 }

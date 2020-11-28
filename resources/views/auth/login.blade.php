@@ -11,6 +11,7 @@
                     <form class="form-horizontal" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}
 
+                        <!-- {{--
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
@@ -20,6 +21,21 @@
                                 @if ($errors->has('email'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        --}} -->
+
+                        <div class="form-group{{ $errors->has('unique_id') ? ' has-error' : '' }}">
+                            <label for="unique_id" class="col-md-4 control-label">User ID</label>
+
+                            <div class="col-md-6">
+                                <input id="unique_id" type="unique_id" class="form-control" name="unique_id" value="{{ old('unique_id') }}" required autofocus>
+
+                                @if ($errors->has('unique_id'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('unique_id') }}</strong>
                                     </span>
                                 @endif
                             </div>

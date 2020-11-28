@@ -6,10 +6,12 @@
         {{ $user->name }}
     </p>
     
+    
 </div>
 <div class="panel-body" >
     <div>
         <div style="text-align:center;">
+            
             @if(Auth::user()->id == $user->id)
             <p><i class="fas fa-lock"></i>メールアドレス：{{ $user->email }}</p>
             
@@ -31,6 +33,9 @@
                     object-fit: cover;
                 ">
             @endif
+        </div>
+        <div style="text-align:center;">
+        ID：{{ $user->unique_id }}
         </div>
 
         <div style="text-align:center;">
@@ -54,9 +59,13 @@
         
     </div>
 
-    <div class="p-2 d-flex flex-column align-items-center"style="text-align:center;">
-        <p class="font-weight-bold">フォロー数{{ $follow_count }} フォロワー数{{ $follower_count }}</p>
-    </div>
+    <a href="{{ route('user.index', ['id' => Auth::user()->id]) }}">
+        <div class="p-2 d-flex flex-column align-items-center"style="text-align:center;">
+            <p class="font-weight-bold">フォロー数{{ $follow_count }} フォロワー数{{ $follower_count }}</p>
+        </div>
+    </a>
+
+
 
     <div style="text-align:center;">
     @if(Auth::user()->id == $user->id)
@@ -86,7 +95,7 @@
 <!-- tabのcssのクラス -->
     <div class="tab-wrap">
 <!-- 自分の投稿 -->
-        <input id="TAB-01" type="radio" name="TAB" class="tab-switch" checked="checked" /><label class="tab-label" for="TAB-01">post</label>
+        <input id="TAB-01" type="radio" name="TAB" class="tab-switch" checked="checked" /><label class="tab-label" for="TAB-01">投稿</label>
         <div class="tab-content">
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">
@@ -94,7 +103,7 @@
                     </div>
                 @endif
 
-                @foreach($user->posts as $post)
+                @foreach($posts as $post)
                     <div class="card">
                         <div class="card-body" >
                                     <h5 class="card-title">
@@ -120,7 +129,7 @@
                 @endforeach       
         </div>
 <!-- お気に入り投稿 -->
-        <input id="TAB-02" type="radio" name="TAB" class="tab-switch" /><label class="tab-label" for="TAB-02">fav</label>
+        <input id="TAB-02" type="radio" name="TAB" class="tab-switch" /><label class="tab-label" for="TAB-02">お気に入り</label>
         <div class="tab-content">
             @if (session('status'))
                 <div class="alert alert-success" role="alert">
@@ -167,7 +176,7 @@
                             @else
                             @endif  
                     </div>
-                    <p>投稿日時：{{$post->created_at}}</p>
+                    <p>投稿日時：{{$fav_post->created_at}}</p>
                     <div style= "text-align: right;">
                         <div>
                             @if($fav_post->is_faved_by_auth_user())
@@ -184,7 +193,7 @@
         </div>
 
 <!-- いいねコメント -->
-        <input id="TAB-03" type="radio" name="TAB" class="tab-switch" /><label class="tab-label" for="TAB-03">luv</label>
+        <input id="TAB-03" type="radio" name="TAB" class="tab-switch" /><label class="tab-label" for="TAB-03">いいね</label>
         <div class="tab-content">
             @if (session('status'))
                 <div class="alert alert-success" role="alert">

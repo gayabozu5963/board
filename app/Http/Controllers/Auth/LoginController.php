@@ -36,4 +36,10 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+// 以下を追加
+// ない場合はデフォルトでメールでの認証になる
+    public function username()
+    {
+      return 'unique_id';
+    }
 }

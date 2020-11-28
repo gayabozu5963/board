@@ -4,7 +4,7 @@ namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 
-class AlphaNumHalf implements Rule
+class AlphaNumHalfUserId implements Rule
 {
     /**
      * Create a new rule instance.
@@ -25,7 +25,7 @@ class AlphaNumHalf implements Rule
      */
     public function passes($attribute, $value)
     {
-        return preg_match('/\A(?=.?[a-z])(?=.?[A-Z])(?=.*?\d)[a-zA-Z\d]+\z/', $value);//半角英数のバリデーションが真偽を判定するメソッド偽の場合下記メッセージに移行
+        return preg_match('/^[a-zA-Z0-9\_]+$/u', $value);//半角英数記号のバリデーションが真偽を判定するメソッド偽の場合下記メッセージに移行
     }
 
     /**
@@ -35,6 +35,6 @@ class AlphaNumHalf implements Rule
      */
     public function message()
     {
-        return ':attributeは小文字半角英字、大文字半角英字、数字をそれぞれ使用必須';
+        return 'User IDは半角英数と「 _ 」のみ使用可';
     }
 }
