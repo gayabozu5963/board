@@ -160,9 +160,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-
         $post->load('user','comments'); //遅延ローディング
-
 
         $comments = $post->comments;
 
@@ -188,9 +186,6 @@ class PostController extends Controller
             $repliereplies = Replie::whereIn('repliereplie_id', $repliereplie_ids)
             ->get();
         }
-
-        
-
         
         return view('posts.show',[
             'post'=> $post,
@@ -234,14 +229,15 @@ class PostController extends Controller
 
     public function search(Request $request)
     {
-
-        $posts = Post::where('title', 'like', "%{$request->search}%")
+        $posts = Post::join('users','users.id','=',"user_id")
+        ->where('title', 'like', "%{$request->search}%")
         ->orWhere('content', 'like', "%{$request->search}%")
-        // ->orWhere('posts.name', 'like', "%{$request->search}%")
+        ->orWhere('users.name', 'like', "%{$request->search}%")
+        ->orWhere('users.unique_id', 'like', "%{$request->search}%")
         ->paginate(5);
 
         
-        $search_result = $request->search.'の検索結果'.$posts->total().'件';
+        $search_result = '「'.$request->search.'」の検索結果 '.$posts->total().'件';
 
         return view('posts.index', [
             'posts' => $posts,

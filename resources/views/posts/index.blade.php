@@ -19,6 +19,7 @@
                                             </span>
                                 </div>
                                 @isset($search_result)
+                                <br>
                                         <h5 class="panel-title">{{ $search_result }}</h5>
                                 @endisset
                             </form>
@@ -131,9 +132,7 @@
          <!-- {{-- @if(isset($category_id))
               {{ $posts->appends(['category_id' => $category_id])->links() }} 
               @elseif(isset($tag_name)) --}}  -->
-
               
-
     @if(isset($tag_name))
     {{ $posts->appends(['tag_name' => $tag_name])->links() }}
 
