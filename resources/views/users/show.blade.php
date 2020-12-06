@@ -58,12 +58,23 @@
         @endif
         
     </div>
+   
 
-    <a href="{{ route('user.index', ['id' => Auth::user()->id]) }}">
-        <div class="p-2 d-flex flex-column align-items-center"style="text-align:center;">
-            <p class="font-weight-bold">フォロー数{{ $follow_count }} フォロワー数{{ $follower_count }}</p>
-        </div>
-    </a>
+    <div style = "display: flex;justify-content: center;">
+
+        <a href="{{ route('user.follow_show', ['id' => $user->id]) }}">
+            <div style="text-align:center;flex-direction: center;">
+                <p class="font-weight-bold">フォロー数{{ $follow_count }}　</p>
+            </div>
+        </a>
+
+        <a href="{{ route('user.follower_show', ['id' => $user->id]) }}">
+            <div style="text-align:center;flex-direction: center;">
+                <p class="font-weight-bold">フォロワー数{{ $follower_count }}</p>
+            </div>
+        </a>
+
+    </div>
 
 
 

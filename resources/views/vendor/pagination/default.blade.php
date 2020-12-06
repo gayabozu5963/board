@@ -1,6 +1,6 @@
   
- <!-- @if ($paginator->hasPages())
-    {{--<ul class="pagination">
+ @if ($paginator->hasPages())
+    <ul class="pagination">
         {{-- Previous Page Link --}}
         @if ($paginator->onFirstPage())
             <li class="disabled"><span>&laquo;</span></li>
@@ -33,13 +33,13 @@
         @else
             <li class="disabled"><span>&raquo;</span></li>
         @endif
-    </ul>--}}
-@endif -->
+    </ul>
+@endif
 
 
 
-@if ($paginator->hasPages())
-    <ul class="pagination" role="navigation">
+<!-- @if ($paginator->hasPages())
+    {{--<ul class="pagination" role="navigation"style= "text-align:center;">
         {{-- First Page Link --}}
         <li class="page-item {{ $paginator->onFirstPage() ? ' disabled' : '' }}">
         <a class="page-link" href="{{ $paginator->url(1) }}">&laquo;</a>
@@ -97,5 +97,5 @@
             <a class="page-link" href="{{ $paginator->url($paginator->lastPage()) }}">&raquo;</a>
             </li>
 
-    </ul>
-@endif
+    </ul>--}}
+@endif -->

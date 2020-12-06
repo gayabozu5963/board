@@ -25,8 +25,6 @@ class UserController extends Controller
      */
     public function index(User $user)
     {
-
-
         $all_users = $user->getAllUsers(auth()->user()->id);
 
         return view('user.index', [
@@ -68,6 +66,7 @@ class UserController extends Controller
 
         // user_idを取得する。
         $user_id = $user->id;
+
         
         $posts = Post::where('user_id', $user_id)
         ->orderBy('posts.id','desc')
@@ -78,7 +77,7 @@ class UserController extends Controller
         ->get();
 
 
-// ファボの表示
+        // ファボの表示
         $post_ids = array();
         foreach($favs as $fav){
             array_push($post_ids, $fav->post_id);
@@ -87,7 +86,7 @@ class UserController extends Controller
         ->orderBy('posts.id','desc')
         ->get();
 
-// いいねの表示
+        // いいねの表示
         $comment_ids = array();
         foreach($likes as $like){
             if($like->comment_id == !null){
@@ -103,19 +102,6 @@ class UserController extends Controller
         }
 
         $like_comment_posts = array_reverse($like_comment_posts);
-
-
-
-// いいねした順に表示
-        // $like_comment_posts = Comment::whereIn('comments.id', $comment_ids)
-        //                     ->join('likes', 'likes.comment_id', '=', 'comments.id')
-        //                     ->where('likes.user_id', Auth::user()->id) //ログインしている自分自身のid
-        //                     ->orderBy('likes.created_at', 'DESC')
-        //                     ->get();
-
-
-
-
 
 
 
@@ -138,8 +124,23 @@ class UserController extends Controller
         $login_user = auth()->user();
         $is_following = $login_user->isFollowing($user->id);
         $is_followed = $login_user->isFollowed($user->id);
+
         $follow_count = $follower->getFollowCount($user->id);
         $follower_count = $follower->getFollowerCount($user->id);
+
+        $follow_id = $follower->getFollow($user->id);
+        $follower_id = $follower->getFollower($user->id);
+
+
+        $follow = User::whereIn('id', $follow_id)
+        ->get();
+
+        $follower = User::whereIn('id', $follower_id)
+        ->get();
+
+
+        
+        
 
         return view('users.show', [
             'user' => $user,
@@ -148,7 +149,8 @@ class UserController extends Controller
             'like_comment_posts' => $like_comment_posts,
             'like_replie_posts' => $like_replie_posts,
             'follow_count'   => $follow_count,
-            'follower_count' => $follower_count
+            'follower_count' => $follower_count,
+
 
         ]);
     }
@@ -253,6 +255,83 @@ class UserController extends Controller
                 return back();
             }
         }
+
+
+
+        public function follow_show(User $user,Follower $follower,Request $request)
+        {
+            $q = \Request::query();
+    
+            // user_idを取得する。
+            $user_id = $request->id;
+
+            $follow_ids = $follower->getFollow($user_id);
+
+           
+
+
+            $followed_ids = array();
+            foreach($follow_ids as $follow_id){
+            array_push($followed_ids, $follow_id->followed_id);
+            }
+
+            
+            
+    
+    
+            $follow = User::whereIn('id', $followed_ids)
+            ->get();
+
+            // dd($follow);
+
+            $user_j = User::where('id', $user_id)
+            ->get();
+
+            
+
+
+            
+    
+    
+            return view('users.follow', [
+                'follow'   => $follow,
+                'user_j'=> $user_j
+            ]);
+        }
+
+
+
+        public function follower_show(User $user,Follower $follower,Request $request)
+        {
+            $q = \Request::query();
+    
+            // user_idを取得する。
+            $user_id = $request->id;
+
+            $follower_ids = $follower->getFollower($user_id);
+
+
+            $following_ids = array();
+            foreach($follower_ids as $follower_id){
+            array_push($following_ids, $follower_id->following_id);
+            }
+
+
+    
+            $follower = User::whereIn('id', $following_ids)
+            ->get();
+
+
+            $user_j = User::where('id', $user_id)
+            ->get();
+    
+    
+            return view('users.follower', [
+                'follower'   => $follower,
+                'user_j'=> $user_j
+            ]);
+        }
+    
 
 
 

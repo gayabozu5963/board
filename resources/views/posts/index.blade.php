@@ -132,7 +132,8 @@
          <!-- {{-- @if(isset($category_id))
               {{ $posts->appends(['category_id' => $category_id])->links() }} 
               @elseif(isset($tag_name)) --}}  -->
-              
+
+    <div style= "text-align:center;;">
     @if(isset($tag_name))
     {{ $posts->appends(['tag_name' => $tag_name])->links() }}
 
@@ -142,6 +143,7 @@
     @else
     {{ $posts->links() }} <!-- ページネーション -->
     @endif　
+    </div>
 
 
     <!-- モーダル用 -->

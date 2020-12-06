@@ -35,6 +35,12 @@ Route::get('/user/userEdit', 'UserController@userEdit')->name('user.userEdit')->
 
 Route::post('/user/userEdit', 'UserController@userUpdate')->name('user.userUpdate')->middleware('auth');
 
+
+Route::get('/user/follow_show', 'UserController@follow_show')->name('user.follow_show')->middleware('auth');
+
+Route::get('/user/follower_show', 'UserController@follower_show')->name('user.follower_show')->middleware('auth');
+
+
 Route::resource('/comments', 'CommentController', )->middleware('auth');
 
 Route::resource('/replies', 'ReplieController')->middleware('auth');
@@ -54,6 +60,14 @@ Route::get('/post/unfav/{id}', 'PostController@unfav')->name('post.unfav')->midd
 // フォロー/フォロー解除を追加
 Route::post('users/{user}/follow', 'UserController@follow')->name('follow')->middleware('auth');
 Route::delete('users/{user}/unfollow', 'UserController@unfollow')->name('unfollow')->middleware('auth');
+
+
+Route::get('/repliereplie/like/{id}', 'RepliereplieController@like')->name('repliereplie.like')->middleware('auth');
+
+Route::get('/repliereplie/unlike/{id}', 'RepliereplieController@unlike')->name('repliereplie.unlike')->middleware('auth');
+
+
+
 
 
 

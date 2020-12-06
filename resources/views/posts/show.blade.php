@@ -63,10 +63,10 @@
     </div>
 
 
-
     <div class="p-3">
         <h4 class="">スレッド一覧　</h4>
         <hr>
+        <!-- コメント -->
         @foreach($post->comments as $comment)
             <div class="card">
                 <div class="card-body">
@@ -103,7 +103,8 @@
                     <a href="{{ route('replies.create',['comment_id' => $comment->id]) }}">
                         <i class="fas fa-reply"></i>
                     </a>
-                    <?php
+
+                    <!-- <?php
                         $i=0;
                         $reply_id=0; 
                     ?>
@@ -120,7 +121,9 @@
                             <a class="js-button"value="返信を表示" onclick="clickBtn1({{$reply_id}})" >{{$i}}件の返信</a>
                         @else
                         @endif
-                    @endif
+                    @endif -->
+
+                    
                 </div>
                 <!-- いいね -->
                 <div style = "flex-direction: column;padding-left: 15px;" >
@@ -142,8 +145,8 @@
             @if(!empty($comment->replies))
                 <div class="reply" style="padding-left: 10px;">
                     <div class="reply_a" id="{{$reply_id}}" style="color: #494949;background: transparent;border-left: solid 3px #7db4e6;">
-                    @foreach($comment->replies as $replie)
-                    @if(empty($replie->repliereplie_id))
+                        @foreach($comment->replies as $replie)
+                            @if(empty($replie->repliereplie_id))
                             <!-- コメントに対するリプのみ-->
                                     <div style="padding-left: 20px;">
                                         @if(!empty($replie->user->pro_image))
@@ -192,75 +195,75 @@
                                         </div>
                                     </div>
                                     <hr>
-                        @else
-                        @endif
-
-                        <div class="reply" style="padding-left: 25px;">
-                            <div class="reply_a" id="" style="color: #494949;background: transparent;border-left: solid 3px #7db4e6;">
-
-                                @foreach($repliereplies as $repliereplie)
-                                    @if($repliereplie->repliereplie_id == $replie->id)
-                                        <!-- リプライリプライIDがNULLじゃない時 -->
-                                            <!-- リプに対するリプ -->
-                                    
-                                                <div style="padding-left: 20px;">
-                                                    @if(!empty($repliereplie->user->pro_image))
-                                                        <img src="{{ asset('storage/pro_image/'.$replie->user->pro_image ) }}" class="pro_image" 
-                                                        style= "width: 25px;
-                                                        height: 25px;
-                                                        border-radius: 50%;
-                                                        box-shadow: 0 2px 3px 1px rgb(0, 0, 0);
-                                                        object-fit: cover;
-                                                        ">
-                                                    @else
-                                                        <img src="{{ asset('storage/noimage/noimage.png') }}" class="noimage" 
-                                                            style= "width: 25px;
-                                                            height: 25px;
-                                                            border-radius: 50%;
-                                                            ">
-                                                    @endif
-                                                    <a href="{{ route('users.show', $replie->user->id) }}">
-                                                        {{ $repliereplie->user->name }}
-                                                    </a>
-                                                    <div style="padding-left: 30px;">
-                                                        <p class="card-text">{!! nl2br(e($repliereplie->replie)) !!}</p>
-                                                    </div>
-                                                    <p style="padding-left: 30px; font-size: 12px; ">
-                                                    返信日時：{{$repliereplie->created_at}}
-                                                    </p>
-                                                    <div style="padding-left: 30px;display: flex;">
-                                                        <div style = "flex-direction: column;">
-                                                            <!-- リプライ -->
-                                                            <a href="{{ route('replies.create',['comment_id' => $comment->id,'replie_id' => $replie->id]) }}">
-                                                                <i class="fas fa-reply"></i>
-                                                            </a>
-                                                        </div> 
-                                                            <!-- コメントに対するリプライのいいね -->
-                                                        <div style = "flex-direction: column;padding-left: 15px;">
-                                                            @if($repliereplie->is_liked_by_auth_user())
-                                                                <a href="{{ route('replie.unlike', ['id' => $replie->id]) }}" class=""><i class="fas fa-heart"></i></a>{{ $replie->likes->count() }}
+                            @else
+                            @endif
+                                <div class="reply" style="padding-left: 25px;">
+                                    <div class="reply_a" id="" style="color: #494949;background: transparent;border-left: solid 3px #7db4e6;">
+                                        @foreach($repliereplies as $repliereplie)
+                                            @if($repliereplie->repliereplie_id == $replie->id)
+                                                <!-- リプライリプライIDがNULLじゃない時 -->
+                                                    <!-- リプに対するリプ -->
+                                                        <div style="padding-left: 20px;">
+                                                            @if(!empty($repliereplie->user->pro_image))
+                                                                <img src="{{ asset('storage/pro_image/'.$repliereplie->user->pro_image ) }}" class="pro_image" 
+                                                                style= "width: 25px;
+                                                                height: 25px;
+                                                                border-radius: 50%;
+                                                                box-shadow: 0 2px 3px 1px rgb(0, 0, 0);
+                                                                object-fit: cover;
+                                                                ">
                                                             @else
-                                                                <a href="{{ route('replie.like', ['id' => $replie->id]) }}" class=""><i class="far fa-heart"></i></a>
-                                                                @if($repliereplie->likes->count() == '0')
-                                                                @else
-                                                                {{ $repliereplie->likes->count() }}
-                                                                @endif
+                                                                <img src="{{ asset('storage/noimage/noimage.png') }}" class="noimage" 
+                                                                    style= "width: 25px;
+                                                                    height: 25px;
+                                                                    border-radius: 50%;
+                                                                    ">
                                                             @endif
+                                                            <a href="{{ route('users.show', $repliereplie->user->id) }}">
+                                                                {{ $repliereplie->user->name }}
+                                                            </a>
+                                                            <div style="padding-left: 30px;">
+                                                                <p class="card-text">{!! nl2br(e($repliereplie->replie)) !!}</p>
+                                                            </div>
+                                                            <p style="padding-left: 30px; font-size: 12px; ">
+                                                            返信日時：{{$repliereplie->created_at}}
+                                                            </p>
+                                                            <div style="padding-left: 30px;display: flex;">
+                                                                <div style = "flex-direction: column;">
+                                                                    <!-- リプライ -->
+                                                                    <a href="{{ route('replies.create',['comment_id' => $comment->id,'replie_id' => $replie->id]) }}">
+                                                                        <i class="fas fa-reply"></i>
+                                                                    </a>
+                                                                </div> 
+                                                                    <!-- コメントに対するリプライのいいね -->
+                                                                <div style = "flex-direction: column;padding-left: 15px;">
+                                                                    @if($repliereplie->is_liked_by_auth_user())
+                                                                        <a href="{{ route('repliereplie.unlike', ['id' => $repliereplie->id]) }}" class=""><i class="fas fa-heart"></i></a>{{ $repliereplie->likes->count() }}
+                                                                    @else
+                                                                        <a href="{{ route('repliereplie.like', ['id' => $repliereplie->id]) }}" class=""><i class="far fa-heart"></i></a>
+                                                                        @if($repliereplie->likes->count() == '0')
+                                                                        @else
+                                                                        {{ $repliereplie->likes->count() }}
+                                                                        @endif
+                                                                    @endif
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <hr>
-                                    @else
-                                    @endif
-                                @endforeach
-                            </div>
-                        </div>
-                    @endforeach  
+                                                        <hr>
+                                            @else
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                </div>
+                        @endforeach  
                     </div>
                 </div>
             @else
             @endif
         @endforeach
+
+
+
 
 
         @guest

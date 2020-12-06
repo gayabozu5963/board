@@ -35,7 +35,7 @@
         <form action="{{ route('replies.store')}}" method="POST">
         {{ csrf_field() }}
                 <div class="form-group">
-                  <textarea class="form-control" rows="5" id="replie" name="replie">@ {{$comment->user->name}}さん>>></textarea>
+                  <textarea class="form-control" rows="5" id="replie" name="replie">@ {{$comment->user->unique_id}}さん>>></textarea>
                 </div>
 
                 <input type="hidden" name="user_id" value="{{ Auth::id() }}">
@@ -50,7 +50,7 @@
                 <div class="form-group">
                 @foreach ($comments as $comment)
                 @foreach ($replies as $replie)
-                <textarea class="form-control" rows="5" id="replie" name="replie">@ {{$comment->user->name}}さん>>>@ {{$replie->user->name}}さん>>></textarea>
+                <textarea class="form-control" rows="5" id="replie" name="replie">@ {{$comment->user->unique_id}}さん>>>@ {{$replie->user->unique_id}}さん>>></textarea>
                 @endforeach
                 @endforeach
                 </div>

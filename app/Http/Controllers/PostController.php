@@ -53,7 +53,7 @@ class PostController extends Controller
         // }
 
          if(isset($q['tag_name'])){
-            $posts = Post::latest()->where('content', 'like', "%{$q['tag_name']}%")->paginate(5);
+            $posts = Post::latest()->where('content', 'like', "%{$q['tag_name']}%")->paginate(10);
             $posts->load('user', 'tags');
 
             return view('posts.index', [
@@ -61,7 +61,7 @@ class PostController extends Controller
                 'tag_name' => $q['tag_name']
             ]);
         }else {
-            $posts = Post::latest()->paginate(5);
+            $posts = Post::latest()->paginate(10);
             $posts->load('user', 'tags');
 
             return view('posts.index', [
@@ -164,21 +164,21 @@ class PostController extends Controller
 
         $comments = $post->comments;
 
-
+        // 投稿に存在するコメントのIDを配列で取得
         $comment_ids = array();
-
         foreach($comments as $comment){
             array_push($comment_ids, $comment->id);
         }
 
         $repliereplies = 0;
-
+        // 投稿にコメントが存在する場合
         if($comment_ids){
+            // コメントに対するリプライを取得
             $comment_replies = Replie::whereIn('comment_id', $comment_ids)
             ->get();
-    
+            
+            
             $repliereplie_ids = array();
-    
             foreach($comment_replies as $comment_replie){
                 array_push($repliereplie_ids, $comment_replie->repliereplie_id);
             }

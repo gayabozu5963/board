@@ -115,9 +115,9 @@ class CommentController extends Controller
 
         // return Redirect::to(URL::previous() . "#$id");
 
-        return redirect()->to(url()->previous() . "#{$id}");
+        // return redirect()->to(url()->previous() . "#{$id}");
 
-        // return redirect()->back();
+        return redirect()->back();
     }
 
     /**
@@ -135,8 +135,8 @@ class CommentController extends Controller
 
         // return Redirect::to(URL::previous() . "#$id");
 
-        return redirect()->to(url()->previous() . "#{$id}");
+        // return redirect()->to(url()->previous() . "#{$id}");
 
-        // return redirect()->back();
+        return redirect()->back();
     }
 }
