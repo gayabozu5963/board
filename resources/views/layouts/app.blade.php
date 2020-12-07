@@ -65,7 +65,7 @@
                                 </a>
                                 @else
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre style= "text-align: right;">
-                                <img src="{{ asset('storage/noimage/noimage.png') }}" class="noimage" 
+                                <img src="{{ asset('image/noimage.png') }}" class="noimage" 
                                 style= "width: 25px;
                                 height: 25px;
                                 background: #eee;

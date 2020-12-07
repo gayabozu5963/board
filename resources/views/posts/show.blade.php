@@ -34,7 +34,7 @@
                 </div>
             @else
             <div style = "display: flex;">
-                <img src="{{ asset('storage/noimage/noimage.png') }}" class="noimage" 
+                <img src="{{ asset('image/noimage.png') }}" class="noimage" 
                     style= "width: 50px;
                     height: 50px;
                     border-radius: 50%;
@@ -80,7 +80,7 @@
                                 object-fit: cover;
                                 ">
                         @else
-                            <img src="{{ asset('storage/noimage/noimage.png') }}" class="noimage" 
+                            <img src="{{ asset('image/noimage.png') }}" class="noimage" 
                                 style= "width: 25px;
                                 height: 25px;
                                 border-radius: 50%;
@@ -158,7 +158,7 @@
                                             object-fit: cover;
                                             ">
                                         @else
-                                            <img src="{{ asset('storage/noimage/noimage.png') }}" class="noimage" 
+                                            <img src="{{ asset('image/noimage.png') }}" class="noimage" 
                                                 style= "width: 25px;
                                                 height: 25px;
                                                 border-radius: 50%;
@@ -213,7 +213,7 @@
                                                                 object-fit: cover;
                                                                 ">
                                                             @else
-                                                                <img src="{{ asset('storage/noimage/noimage.png') }}" class="noimage" 
+                                                                <img src="{{ asset('image/noimage.png') }}" class="noimage" 
                                                                     style= "width: 25px;
                                                                     height: 25px;
                                                                     border-radius: 50%;

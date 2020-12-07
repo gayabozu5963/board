@@ -16,7 +16,7 @@
                                         @if(!empty($user->pro_image))
                                         <img src="{{ asset('storage/pro_image/'.$user->pro_image) }}" class="pro_image">
                                         @else
-                                        <img src="{{ asset('storage/noimage/noimage.png') }}" class="pro_image">
+                                        <img src="{{ asset('image/noimage.png') }}" class="pro_image">
                                         @endif
                                 </div>
                                 <div style = "flex-direction: column; padding-left: 10px;max-width: 80%;">

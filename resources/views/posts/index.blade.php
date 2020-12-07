@@ -60,7 +60,7 @@
             <!--user noimage -->
             @else
             <div style = "display: flex;">
-                <img src="{{ asset('storage/noimage/noimage.png') }}" class="pro_image">
+                <img src="{{ asset('image/noimage.png') }}" class="pro_image">
                     <div style = "flex-direction: column; padding-left: 10px; max-width: 80%;">
                         <!-- user name -->
                         <a href="{{ route('users.show', $post->user_id) }}">

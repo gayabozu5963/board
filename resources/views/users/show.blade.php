@@ -25,7 +25,7 @@
                     object-fit: cover;
                     ">
             @else
-            <img src="{{ asset('storage/noimage/noimage.png') }}" class="noimage" 
+            <img src="{{ asset('image/noimage.png') }}" class="noimage" 
                     style= "width: 200px;
                     height: 200px;
                     border-radius: 50%;
@@ -159,7 +159,7 @@
                             object-fit: cover;
                             ">
                 @else
-                    <img src="{{ asset('storage/noimage/noimage.png') }}" class="noimage" 
+                    <img src="{{ asset('image/noimage.png') }}" class="noimage" 
                     style= "width: 25px;
                     height: 25px;
                     border-radius: 50%;
@@ -225,7 +225,7 @@
                                     object-fit: cover;
                                     ">
                             @else
-                                <img src="{{ asset('storage/noimage/noimage.png') }}" class="noimage" 
+                                <img src="{{ asset('image/noimage.png') }}" class="noimage" 
                                     style= "width: 25px;
                                     height: 25px;
                                     border-radius: 50%;
