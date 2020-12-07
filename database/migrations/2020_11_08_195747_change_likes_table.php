@@ -15,7 +15,7 @@ class ChangeLikesTable extends Migration
     {
         Schema::table('likes', function (Blueprint $table) {
             $table->integer('replie_id')->unsigned()->nullable()->change();
-            $table->integer('comment_id')->unsigned()->nullable();
+            $table->integer('comment_id')->unsigned()->nullable()->change();
         });
     }
 
@@ -28,6 +28,7 @@ class ChangeLikesTable extends Migration
     {
         Schema::table('likes', function (Blueprint $table) {
             $table->integer('replie_id')->unsigned()->change();
+            $table->integer('comment_id')->unsigned()->change();
         });
     }
 }
