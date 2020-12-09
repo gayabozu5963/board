@@ -25,7 +25,7 @@ class AlphaNumHalf implements Rule
      */
     public function passes($attribute, $value)
     {
-        return preg_match('/\A(?=.?[a-z])(?=.?[A-Z])(?=.*?\d)[a-zA-Z\d]+\z/', $value);//半角英数のバリデーションが真偽を判定するメソッド偽の場合下記メッセージに移行
+        return preg_match('/\A(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d]+\z/', $value);//半角英数のバリデーションが真偽を判定するメソッド偽の場合下記メッセージに移行
     }
 
     /**
