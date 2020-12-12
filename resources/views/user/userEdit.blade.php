@@ -78,7 +78,7 @@
 
             <div class="buttonSet">
             <input type="submit" name="send" value="プロフィール変更" class="btn btn-primary btn-sm btn-done">
-            <a href="{{ route('user.index') }}" class="btn btn-primary btn-sm">戻る</a>
+            <a href="{{ route('users.show', Auth::user()->id) }}" name="back" class="btn btn-primary btn-sm">戻る</a>
             </div>
             
         </form>
