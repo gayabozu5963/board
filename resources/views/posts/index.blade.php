@@ -105,7 +105,6 @@
             </h5>
             <!-- スレッド詳細 -->
             <a href="{{ route('posts.show' ,$post->id)}}" class="btn btn-primary">スレッド詳細</a>
-            {{$post->id}}
 
             
             <div class="row justify-content-center">
