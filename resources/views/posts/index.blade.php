@@ -30,6 +30,8 @@
         </div>
     </div>
 </div>
+
+
 <div class="panel-heading">Board</div>
 <div class="panel-body" >
 
@@ -66,8 +68,8 @@
                         <a href="{{ route('users.show', $post->user_id) }}">
                             {{ $post->user->name }}
                         </a>
-                        投稿日時：{{$post->created_at}}
                         <!-- title -->
+                        {{'@'.$post->user->unique_id}}
                         <p class="card-title">
                             Title： {{ $post->title }}
                         </p>
@@ -103,6 +105,7 @@
             </h5>
             <!-- スレッド詳細 -->
             <a href="{{ route('posts.show' ,$post->id)}}" class="btn btn-primary">スレッド詳細</a>
+            {{$post->id}}
 
             
             <div class="row justify-content-center">
@@ -201,7 +204,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                            <label for="comment">Comment</label>
+                                            <label for="comment">Content</label>
                                             <textarea class="form-control" rows="5" id="comment" name="content"></textarea>
                                     </div>
 

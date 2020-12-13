@@ -150,8 +150,6 @@ class UserController extends Controller
             'like_replie_posts' => $like_replie_posts,
             'follow_count'   => $follow_count,
             'follower_count' => $follower_count,
-
-
         ]);
     }
 
@@ -267,17 +265,12 @@ class UserController extends Controller
 
             $follow_ids = $follower->getFollow($user_id);
 
-           
-
 
             $followed_ids = array();
             foreach($follow_ids as $follow_id){
             array_push($followed_ids, $follow_id->followed_id);
             }
 
-            
-            
-    
     
             $follow = User::whereIn('id', $followed_ids)
             ->get();
@@ -286,12 +279,6 @@ class UserController extends Controller
 
             $user_j = User::where('id', $user_id)
             ->get();
-
-            
-
-
-            
-    
     
             return view('users.follow', [
                 'follow'   => $follow,

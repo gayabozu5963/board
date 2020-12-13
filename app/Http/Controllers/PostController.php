@@ -229,7 +229,8 @@ class PostController extends Controller
 
     public function search(Request $request)
     {
-        $posts = Post::join('users','users.id','=',"user_id")
+
+        $posts = Post::select('posts.*')->join('users','posts.user_id','=',"users.id")
         ->where('title', 'like', "%{$request->search}%")
         ->orWhere('content', 'like', "%{$request->search}%")
         ->orWhere('users.name', 'like', "%{$request->search}%")
