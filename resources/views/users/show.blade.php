@@ -259,6 +259,56 @@
                 <a href="{{ route('posts.show', $like_comment_post->post_id) }}" class="btn btn-primary">詳細</a>
                 <hr>
             @endforeach
+
+            @foreach($like_replie_posts as $like_replie_post)
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">
+                            @if(!empty($like_replie_post->user->pro_image))
+                                <img src="{{ asset('storage/pro_image/'.$like_replie_post->user->pro_image) }}" class="pro_image" 
+                                    style= "width: 25px;
+                                    height: 25px;
+                                    border-radius: 50%;
+                                    box-shadow: 0 2px 3px 1px rgb(0, 0, 0);
+                                    object-fit: cover;
+                                    ">
+                            @else
+                                <img src="{{ asset('image/noimage.png') }}" class="noimage" 
+                                    style= "width: 25px;
+                                    height: 25px;
+                                    border-radius: 50%;
+                                    ">
+                            @endif
+
+                            <a href="{{ route('users.show', $like_replie_post->user->id) }}">
+                                {{ $like_replie_post->user->name }}
+                            </a>
+                            さんのリプライ
+                        </p>
+                        <h5 class="card-title">
+                            <p style="word-wrap: break-word;">Reply ：{!! nl2br(e($like_replie_post->replie)) !!}</p>    
+                        </h5>
+                        投稿日時：{{$like_replie_post->created_at}}
+                    </div>
+                </div>
+                <div style="text-align: right;">
+                    @if($like_replie_post->is_liked_by_auth_user())
+                        <a href="{{ route('replie.unlike', ['id' => $like_replie_post->id]) }}" ><i class="fas fa-heart heart_red"></i></a>
+                        {{ $like_replie_post->likes->count() }}
+                    @else
+                        <a href="{{ route('replie.like', ['id' => $like_replie_post->id]) }}" ><i class="far fa-heart heart_red"></i></a>
+                        @if($like_replie_post->likes->count() == '0')
+                        @else
+                        {{ $like_replie_post->likes->count() }}
+                        @endif
+                    @endif
+                </div>
+                <a href="{{ route('posts.show', $like_replie_post->post_id) }}" class="btn btn-primary">詳細</a>
+                <hr>
+
+                
+            @endforeach
+
         </div>
     </div>
 </div>

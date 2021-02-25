@@ -112,14 +112,27 @@ class UserController extends Controller
             }
         }
 
-        $like_replie_posts = Replie::whereIn('id', $replie_ids)
+        $like_replie_posts_unreverses = Replie::select('replies.*','comments.post_id')->join('comments','replies.comment_id','=',"comments.id")
+        ->whereIn('replies.id', $replie_ids)
         ->get();
+        $like_replie_posts = array();
+        foreach($like_replie_posts_unreverses as $like_replie_posts_unrevers){
+            array_push($like_replie_posts, $like_replie_posts_unrevers);
+        }
+
+        $like_replie_posts = array_reverse($like_replie_posts);
+
+
+
+        
+
+        
 
 
 
         $user->load('posts','favs');
         // $like_comment_posts->load('user');
-        $like_replie_posts->load('user');
+        // $like_replie_posts->load('user');
 
         $login_user = auth()->user();
         $is_following = $login_user->isFollowing($user->id);

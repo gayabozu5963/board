@@ -231,11 +231,11 @@
                                                             <div style="padding-left: 30px;display: flex;">
                                                                 <div style = "flex-direction: column;">
                                                                     <!-- リプライ -->
-                                                                    <a href="{{ route('replies.create',['comment_id' => $comment->id,'replie_id' => $replie->id]) }}">
+                                                                    <a href="{{ route('replies.create',['comment_id' => $comment->id,'replie_id' => $repliereplie->id]) }}">
                                                                         <i class="fas fa-reply"></i>
                                                                     </a>
                                                                 </div> 
-                                                                    <!-- コメントに対するリプライのいいね -->
+                                                                    <!-- リプライに対するリプライのいいね -->
                                                                 <div style = "flex-direction: column;padding-left: 15px;">
                                                                     @if($repliereplie->is_liked_by_auth_user())
                                                                         <a href="{{ route('repliereplie.unlike', ['id' => $repliereplie->id]) }}" class=""><i class="fas fa-heart"></i></a>{{ $repliereplie->likes->count() }}
