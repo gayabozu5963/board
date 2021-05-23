@@ -87,3 +87,26 @@
   border-radius: 50%;
   box-shadow: 0 2px 3px 1px rgb(56, 56, 56);
 }
+
+/* .question_text{
+  margin: auto;
+  max-width: 500px;
+} */
+
+.preview{
+  max-width: 200px;
+  display: none;
+}
+
+.col-md-8{
+  padding: 0;
+}
+
+.post_image {
+  width: 100%;
+  margin: 0;
+  height: auto;
+  object-fit: contain;
+  border-radius: 35px;
+  text-align:center;
+}

@@ -32,7 +32,7 @@
 </div>
 
 
-<div class="panel-heading">Board</div>
+<div class="panel-heading">MonoLog</div>
 <div class="panel-body" >
 
     @if (session('status'))
@@ -80,13 +80,7 @@
             <!-- 投稿画像 -->
             @if (!empty($post->image))
             <a href="{{ route('posts.show_pic', $post->image) }}">
-            <img src="{{ asset('storage/image/'.$post->image) }}"　style= "width: 250px;
-                height: 250px;
-                object-fit: contain;
-                margin-right: 3%;
-                border-radius: 35px;
-                text-align:center;"
-                >
+            <img src="{{ asset('storage/image/'.$post->image) }}" class="post_image">
             </a>
             @else
             @endif

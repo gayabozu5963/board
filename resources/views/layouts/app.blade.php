@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('/image/fukuro.jpg') }}">
 
 </head>
 <body>
@@ -22,6 +23,13 @@
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
+                <img src="{{ asset('/image/fukuro.jpg') }}" class="editpro_image"style= "width: 50px;
+                                    height: 50px;
+                                    border-radius: 50%;
+                                    object-fit: cover;
+                                    margin-top: 1px;
+                                    margin-left: 20px;
+                                    ">
 
                     <!-- Collapsed Hamburger -->
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse" aria-expanded="false">
@@ -33,7 +41,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                    <i class="fas fa-heartbeat"></i> {{ config('app.name', 'Laravel') }}
+                    {{ config('app.name', 'Laravel') }}
                     </a>
                 </div>
 
@@ -112,6 +120,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/open.js') }}"></script>
+    <script src="{{ asset('js/preview.js') }}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     </body>
 </html>

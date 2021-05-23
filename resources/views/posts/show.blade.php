@@ -1,9 +1,40 @@
 @extends('layouts.app')
 @section('content')
 <div class="panel-heading">
-    <h5 class="card-title">
-        <p style="word-wrap: break-word;">title ：{!! nl2br(e($post->title)) !!}</p>    
-    </h5>
+    <!--user image -->
+    @if(!empty($post->user->pro_image))
+        <div style = "display: flex;">
+            <img src="{{ asset('storage/pro_image/'.$post->user->pro_image) }}" class="pro_image" 
+                style= "width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                box-shadow: 0 2px 3px 1px rgb(0, 0, 0);
+                object-fit: cover;
+                ">
+            <div style = "flex-direction: column; padding-left: 10px;">
+                <!-- user name -->
+                <a href="{{ route('users.show', $post->user_id) }}">
+                    {{ $post->user->name }}
+                </a>
+                投稿日時：{{$post->created_at}}
+            </div>
+        </div>
+    @else
+    <div style = "display: flex;">
+        <img src="{{ asset('image/noimage.png') }}" class="noimage" 
+            style= "width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            ">
+            <div style = "flex-direction: column; padding-left: 10px;">
+                <!-- user name -->
+                <a href="{{ route('users.show', $post->user_id) }}">
+                    {{ $post->user->name }}
+                </a>
+                投稿日時：{{$post->created_at}}
+            </div>
+    </div>
+    @endif
 </div>
 <div class="panel-body">
 
@@ -14,40 +45,9 @@
     @endif
     <div class="card">
         <div class="card-body">
-           <!--user image -->
-           @if(!empty($post->user->pro_image))
-                <div style = "display: flex;">
-                    <img src="{{ asset('storage/pro_image/'.$post->user->pro_image) }}" class="pro_image" 
-                        style= "width: 50px;
-                        height: 50px;
-                        border-radius: 50%;
-                        box-shadow: 0 2px 3px 1px rgb(0, 0, 0);
-                        object-fit: cover;
-                        ">
-                    <div style = "flex-direction: column; padding-left: 10px;">
-                        <!-- user name -->
-                        <a href="{{ route('users.show', $post->user_id) }}">
-                            {{ $post->user->name }}
-                        </a>
-                        投稿日時：{{$post->created_at}}
-                    </div>
-                </div>
-            @else
-            <div style = "display: flex;">
-                <img src="{{ asset('image/noimage.png') }}" class="noimage" 
-                    style= "width: 50px;
-                    height: 50px;
-                    border-radius: 50%;
-                    ">
-                    <div style = "flex-direction: column; padding-left: 10px;">
-                        <!-- user name -->
-                        <a href="{{ route('users.show', $post->user_id) }}">
-                            {{ $post->user->name }}
-                        </a>
-                        投稿日時：{{$post->created_at}}
-                    </div>
-            </div>
-            @endif
+            <h5 class="card-title">
+                <p style="word-wrap: break-word;">title ：{!! nl2br(e($post->title)) !!}</p>    
+            </h5>
             @if (!empty($post->image))
             <a href="{{ route('posts.show_pic', $post->image) }}">
             <h5>
